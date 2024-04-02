@@ -1,5 +1,5 @@
 import "./ModeSelector.css";
-import { useAppContext } from "@/App";
+import { useAppContext } from "@/components/App";
 import Button from "@/components/Button";
 
 const ModeSelector = () => {
