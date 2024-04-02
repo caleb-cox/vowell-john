@@ -18,10 +18,15 @@ const localStorageIsAvailable = (() => {
 const AppContext = createContext();
 
 const App = () => {
-  const [mode, setMode] = useState("index");
+  const [mode, setMode] = useState(
+    (localStorageIsAvailable && localStorage.getItem("mode")) || "index"
+  );
 
   useEffect(() => {
     document.body.classList.value = `${mode}-mode`;
+
+    if (!localStorageIsAvailable) return;
+    localStorage.setItem("mode", mode);
   }, [mode]);
 
   const [pages, setPages] = useState(
