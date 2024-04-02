@@ -1,15 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Nova+Mono");
 
 :root {
-  --color-red: #ff8080;
-  --color-yellow: #ffff80;
-  --color-green: #80ff80;
   --color-cyan: #80ffff;
-  --color-blue: #8080ff;
   --color-magenta: #ff80ff;
+  --color-yellow: #ffff80;
   --color-black: #1a1a1a;
-  --color-gray: #808080;
-  --color-white: #e6e6e6;
   font-size: min(3.75vw, 16px);
 }
 
@@ -24,10 +19,28 @@ body {
 }
 
 body {
-  background-color: var(--color-black);
   font-family: "Nova Mono", monospace;
-  color: var(--color-white);
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-primary);
+  color: var(--color-black);
+}
+
+.read-mode {
+  --color-primary: var(--color-magenta);
+}
+
+.edit-mode {
+  --color-primary: var(--color-yellow);
+}
+
+.index-mode {
+  --color-primary: var(--color-cyan);
+}
+
+#root {
+  min-width: 25rem;
+  border: 0.125rem solid var(--color-black);
+  padding: 1rem;
 }
