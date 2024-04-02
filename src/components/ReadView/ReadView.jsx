@@ -8,11 +8,11 @@ const ReadView = () => {
   return (
     <div className="ReadView">
       <h1>{currentPage}</h1>
-      <pre>
+      <p>
         {reactStringReplace(pages[currentPage], /\[\[(.*?)]]/g, (match) => (
           <span className="clickable">{match}</span>
         ))}
-      </pre>
+      </p>
     </div>
   );
 };

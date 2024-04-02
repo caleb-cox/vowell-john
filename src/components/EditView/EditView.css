@@ -1,3 +1,17 @@
 .EditView {
   flex-grow: 1;
+  overflow-y: auto;
+}
+
+.EditView > * {
+  outline: none;
+}
+
+.EditView h1 {
+  font-size: 2rem;
+}
+
+.EditView p {
+  margin-top: 1rem;
+  white-space: pre-wrap;
 }

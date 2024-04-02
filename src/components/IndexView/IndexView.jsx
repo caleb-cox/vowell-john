@@ -1,4 +1,5 @@
 import { useAppContext } from "@/components/App";
+import Button from "@/components/Button";
 import "./IndexView.css";
 
 const IndexView = () => {
@@ -8,18 +9,18 @@ const IndexView = () => {
     <div className="IndexView">
       {Object.keys(pages).map((page) => {
         return (
-          <div
-            className={["page", page === currentPage ? "active" : null]
-              .join(" ")
-              .trim()}
+          <Button
             key={page}
+            active={page === currentPage}
             onClick={() => {
-              setCurrentPage(page);
-              setMode("read");
+              if (page !== currentPage) {
+                setCurrentPage(page);
+                setMode("read");
+              }
             }}
           >
             {page}
-          </div>
+          </Button>
         );
       })}
     </div>

@@ -1,11 +1,15 @@
 .ReadView {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 1rem;
 }
 
-.ReadView pre {
+.ReadView h1 {
+  font-size: 2rem;
+}
+
+.ReadView p {
   margin-top: 1rem;
+  white-space: pre-wrap;
 }
 
 .ReadView .clickable {

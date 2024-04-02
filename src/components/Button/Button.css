@@ -6,8 +6,11 @@
   text-transform: uppercase;
 }
 
-.Button.active,
-.Button:hover {
+.Button.active {
   background-color: var(--color-black);
   color: var(--color-primary);
+}
+
+.Button:hover:not(.active) {
+  text-decoration: underline;
 }
