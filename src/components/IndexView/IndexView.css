@@ -1,3 +1,15 @@
 .IndexView {
   flex-grow: 1;
+  overflow-y: auto;
+}
+
+.IndexView .page {
+  margin: 1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.IndexView .page.active,
+.IndexView .page:hover {
+  text-decoration: underline;
 }
