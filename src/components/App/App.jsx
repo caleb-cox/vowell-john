@@ -1,5 +1,8 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import ModeSelector from "@/components/ModeSelector";
+import IndexView from "@/components/IndexView";
+import ReadView from "@/components/ReadView";
+import EditView from "@/components/EditView";
 import "./App.css";
 
 const localStorageIsAvailable = (() => {
@@ -21,11 +24,18 @@ const App = () => {
     document.body.classList.value = `${mode}-mode`;
   }, [mode]);
 
-  const [pages, setPages] = useState({
-    "Hello world": "This is the first page, isn't it neat?",
-    "What else?": "This is another page. We have so many beautiful pages.",
-    "A THIRD page!": "Lorem ipsum blah blah butts",
-  });
+  const [pages, setPages] = useState(
+    (localStorageIsAvailable && JSON.parse(localStorage.getItem("pages"))) || {
+      "Hello world": "This is the first page, isn't it neat?",
+      "What else?": "This is another page. We have so many beautiful pages.",
+      "A THIRD page!": "Lorem ipsum blah blah butts",
+    }
+  );
+
+  useEffect(() => {
+    if (!localStorageIsAvailable) return;
+    localStorage.setItem("pages", JSON.stringify(pages));
+  }, [pages]);
 
   const [currentPage, setCurrentPage] = useState(
     (localStorageIsAvailable && localStorage.getItem("currentPage")) ||
@@ -42,9 +52,9 @@ const App = () => {
       value={{ mode, setMode, pages, setPages, currentPage, setCurrentPage }}
     >
       <ModeSelector />
-      {mode === "index" && <h1>INDEX PLACEHOLDER</h1>}
-      {mode === "read" && <h1>READ PLACEHOLDER</h1>}
-      {mode === "edit" && <h1>EDIT PLACEHOLDER</h1>}
+      {mode === "index" && <IndexView />}
+      {mode === "read" && <ReadView />}
+      {mode === "edit" && <EditView />}
     </AppContext.Provider>
   );
 };

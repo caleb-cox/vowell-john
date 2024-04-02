@@ -1,5 +1,5 @@
 .Button {
-  border: 0.0625rem solid var(--color-black);
+  border: 0.125rem solid var(--color-black);
   padding: 0.5rem;
   cursor: pointer;
   user-select: none;
