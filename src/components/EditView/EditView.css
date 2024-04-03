@@ -1,17 +1,30 @@
 .EditView {
   flex-grow: 1;
-  overflow-y: auto;
-}
-
-.EditView > * {
-  outline: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .EditView h1 {
   font-size: 2rem;
 }
 
-.EditView p {
-  margin-top: 1rem;
-  white-space: pre-wrap;
+.EditView textarea {
+  resize: none;
+  flex-grow: 1;
+  outline: none;
+  border: 0;
+  padding: 0;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.EditView .controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.EditView .controls *:last-child {
+  flex-grow: 1;
 }
