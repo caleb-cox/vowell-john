@@ -19,3 +19,8 @@
   user-select: none;
   text-decoration: underline;
 }
+
+.ReadView .clickable:hover {
+  background-color: var(--color-black);
+  color: var(--color-primary);
+}

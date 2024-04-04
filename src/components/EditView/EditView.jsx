@@ -20,7 +20,6 @@ const EditView = () => {
   };
 
   const savePage = () => {
-    if (wordCount !== 250) return;
     setPages((prevState) => {
       return {
         ...prevState,

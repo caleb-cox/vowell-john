@@ -9,18 +9,16 @@ const IndexView = () => {
     <div className="IndexView">
       {Object.keys(pages).map((page) => {
         return (
-          <Button
+          <div
             key={page}
-            active={page === currentPage}
+            className="page"
             onClick={() => {
-              if (page !== currentPage) {
-                setCurrentPage(page);
-                setMode("read");
-              }
+              setCurrentPage(page);
+              setMode("read");
             }}
           >
             {page}
-          </Button>
+          </div>
         );
       })}
     </div>

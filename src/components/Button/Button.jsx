@@ -3,7 +3,7 @@ import "./Button.css";
 const Button = ({ active, onClick, children }) => {
   return (
     <div
-      className={["Button", active ? "active" : null].join(" ").trim()}
+      className={["Button"].concat(active ? ["active"] : []).join(" ")}
       onClick={onClick}
     >
       {children}
