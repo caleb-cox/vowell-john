@@ -11,7 +11,9 @@ const ReadView = () => {
       <section>
         {reactStringReplace(pages[currentPage], /\[\[(.*?)]]/g, (match) => (
           <span
-            className="link"
+            className={["link"]
+              .concat(!pages[match] ? ["unlinked"] : [])
+              .join(" ")}
             onClick={() => {
               setCurrentPage(match);
             }}
