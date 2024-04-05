@@ -31,11 +31,15 @@ const App = () => {
 
   const [pages, setPages] = useState(
     (localStorageIsAvailable && JSON.parse(localStorage.getItem("pages"))) || {
-      "! ENTRY POINT !": "",
+      "!!! Start Here": "Enter text here...",
     }
   );
 
   useEffect(() => {
+    if (!pages[currentPage]) {
+      setCurrentPage(Object.keys(pages).sort()[0]);
+    }
+
     if (!localStorageIsAvailable) return;
     localStorage.setItem("pages", JSON.stringify(pages));
   }, [pages]);
@@ -46,7 +50,14 @@ const App = () => {
   );
 
   useEffect(() => {
-    if (!pages[currentPage]) pages[currentPage] = "";
+    if (!pages[currentPage]) {
+      setPages((prevState) => {
+        return {
+          ...prevState,
+          [currentPage]: "Enter text here...",
+        };
+      });
+    }
 
     if (!localStorageIsAvailable) return;
     localStorage.setItem("currentPage", currentPage);
