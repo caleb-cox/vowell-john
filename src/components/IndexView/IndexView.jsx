@@ -3,7 +3,7 @@ import Button from "@/components/Button";
 import "./IndexView.css";
 
 const IndexView = () => {
-  const { setMode, pages, currentPage, setCurrentPage } = useAppContext();
+  const { setMode, pages, setCurrentPage } = useAppContext();
 
   return (
     <div className="IndexView">

@@ -28,6 +28,14 @@
   gap: 0.5rem;
 }
 
-.EditView .controls *:last-child {
-  flex-grow: 1;
+.EditView .controls > * {
+  flex: 1 1 0;
+}
+
+.EditView .word-count {
+  background-color: var(--color-black);
+  color: var(--color-primary);
+  padding: 0.5rem;
+  border: 0.125rem solid var(--color-black);
+  user-select: none;
 }
