@@ -31,14 +31,7 @@ const App = () => {
 
   const [pages, setPages] = useState(
     (localStorageIsAvailable && JSON.parse(localStorage.getItem("pages"))) || {
-      "Hello world": "This is the first page, isn't it neat?",
-      "000": "fffff",
-      "!!!": "fdsafsdfafd",
-      "#": "[[faaaaaaart]]",
-      "? fart!?": "nope",
-      ".": "[[What else?]]",
-      "What else?": "This is another page. We have so many beautiful pages.",
-      "A THIRD page!": "Lorem ipsum blah blah butts",
+      "! ENTRY POINT !": "",
     }
   );
 
@@ -53,6 +46,8 @@ const App = () => {
   );
 
   useEffect(() => {
+    if (!pages[currentPage]) pages[currentPage] = "";
+
     if (!localStorageIsAvailable) return;
     localStorage.setItem("currentPage", currentPage);
   }, [currentPage]);

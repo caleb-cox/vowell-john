@@ -14,13 +14,13 @@
   overflow-y: auto;
 }
 
-.ReadView .clickable {
+.ReadView .link {
   cursor: pointer;
   user-select: none;
   text-decoration: underline;
 }
 
-.ReadView .clickable:hover {
+.ReadView .link:hover {
   background-color: var(--color-black);
   color: var(--color-primary);
 }

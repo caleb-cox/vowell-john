@@ -3,14 +3,21 @@ import { useAppContext } from "@/components/App";
 import "./ReadView.css";
 
 const ReadView = () => {
-  const { pages, currentPage } = useAppContext();
+  const { pages, currentPage, setCurrentPage } = useAppContext();
 
   return (
     <div className="ReadView">
       <h1>{currentPage}</h1>
       <section>
         {reactStringReplace(pages[currentPage], /\[\[(.*?)]]/g, (match) => (
-          <span className="clickable">{match}</span>
+          <span
+            className="link"
+            onClick={() => {
+              setCurrentPage(match);
+            }}
+          >
+            {match}
+          </span>
         ))}
       </section>
     </div>
