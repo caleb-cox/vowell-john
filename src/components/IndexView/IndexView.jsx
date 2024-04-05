@@ -7,20 +7,22 @@ const IndexView = () => {
 
   return (
     <div className="IndexView">
-      {Object.keys(pages).map((page) => {
-        return (
-          <div
-            key={page}
-            className="page"
-            onClick={() => {
-              setCurrentPage(page);
-              setMode("read");
-            }}
-          >
-            {page}
-          </div>
-        );
-      })}
+      {Object.keys(pages)
+        .sort()
+        .map((page) => {
+          return (
+            <div
+              key={page}
+              className="page"
+              onClick={() => {
+                setCurrentPage(page);
+                setMode("read");
+              }}
+            >
+              {page}
+            </div>
+          );
+        })}
     </div>
   );
 };

@@ -1,10 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Nova+Mono");
 
 :root {
-  --color-cyan: #80ffff;
-  --color-magenta: #ff80ff;
-  --color-yellow: #ffff80;
-  --color-black: #1a1a1a;
+  --color-black: hsl(0, 0%, 10%);
   font-size: min(3.75vw, 16px);
 }
 
@@ -28,15 +25,15 @@ body {
 }
 
 .read-mode {
-  --color-primary: var(--color-magenta);
+  --color-primary: hsl(210, 100%, 80%);
 }
 
 .edit-mode {
-  --color-primary: var(--color-yellow);
+  --color-primary: hsl(90, 100%, 80%);
 }
 
 .index-mode {
-  --color-primary: var(--color-cyan);
+  --color-primary: hsl(330, 100%, 80%);
 }
 
 #root {
