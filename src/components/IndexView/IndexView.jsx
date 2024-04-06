@@ -1,5 +1,4 @@
 import { useAppContext } from "@/components/App";
-import Button from "@/components/Button";
 import "./IndexView.css";
 
 const IndexView = () => {

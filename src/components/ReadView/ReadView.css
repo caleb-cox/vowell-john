@@ -28,6 +28,6 @@
 }
 
 .ReadView .link:hover {
-  background-color: var(--color-black);
-  color: var(--color-primary);
+  background-color: var(--foreground-color);
+  color: var(--background-color);
 }

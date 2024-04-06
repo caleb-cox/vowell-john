@@ -1,5 +1,5 @@
 .Button {
-  border: 0.125rem solid var(--color-black);
+  border: 0.125rem solid var(--foreground-color);
   padding: 0.5rem;
   cursor: pointer;
   user-select: none;
@@ -7,8 +7,8 @@
 }
 
 .Button.active {
-  background-color: var(--color-black);
-  color: var(--color-primary);
+  background-color: var(--foreground-color);
+  color: var(--background-color);
 }
 
 .Button:hover:not(.active) {

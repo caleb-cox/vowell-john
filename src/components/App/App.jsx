@@ -36,6 +36,7 @@ const App = () => {
   );
 
   useEffect(() => {
+    // When a page is deleted, let's unfuck that situation
     if (!pages[currentPage]) {
       setCurrentPage(Object.keys(pages).sort()[0]);
     }
@@ -50,6 +51,7 @@ const App = () => {
   );
 
   useEffect(() => {
+    // When a page is created, let's unfuck THAT situation
     if (!pages[currentPage]) {
       setPages((prevState) => {
         return {
