@@ -25,6 +25,10 @@
   line-height: inherit;
 }
 
+.EditView textarea::placeholder {
+  color: color-mix(in srgb, var(--foreground-color) 50%, transparent);
+}
+
 .EditView .controls {
   display: flex;
   gap: 0.5rem;

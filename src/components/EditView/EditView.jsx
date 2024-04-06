@@ -8,6 +8,7 @@ import "./EditView.css";
 const EditView = () => {
   const { setMode, pages, setPages, currentPage, setCurrentPage } =
     useAppContext();
+
   const [text, setText] = useState(pages[currentPage]);
   const [openModal, setOpenModal] = useState(false);
 
@@ -46,6 +47,7 @@ const EditView = () => {
       <textarea
         spellCheck={false}
         value={text}
+        placeholder="Enter text here..."
         onChange={(e) => setText(e.target.value)}
       />
       <div className="controls">
@@ -62,9 +64,7 @@ const EditView = () => {
       </Modal>
     </div>
   ) : (
-    <>
-      <NewPageForm />
-    </>
+    <NewPageForm />
   );
 };
 

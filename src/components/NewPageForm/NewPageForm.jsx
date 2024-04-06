@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import "./NewPageForm.css";
 
 const NewPageForm = () => {
-  const { pages, setPages, setCurrentPage } = useAppContext();
+  const { setMode, pages, setPages, setCurrentPage } = useAppContext();
 
   const [newPageTitle, setNewPageTitle] = useState("");
 
@@ -12,21 +12,23 @@ const NewPageForm = () => {
     e.preventDefault();
     if (!newPageTitle) return;
 
-    if (!pages[newPageTitle]) {
+    if (pages[newPageTitle] === undefined) {
       setPages((prevState) => {
         return {
           ...prevState,
-          [newPageTitle]: "Enter text here...",
+          [newPageTitle]: "",
         };
       });
     }
 
     setCurrentPage(newPageTitle);
+
+    setMode("edit");
   };
 
   return (
     <div className="NewPageForm">
-      <h1>New page:</h1>
+      <h1>New page</h1>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Title"

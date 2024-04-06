@@ -4,25 +4,28 @@ import NewPageForm from "@/components/NewPageForm";
 import "./ReadView.css";
 
 const ReadView = () => {
-  const { pages, setPages, currentPage, setCurrentPage } = useAppContext();
+  const { setMode, pages, setPages, currentPage, setCurrentPage } =
+    useAppContext();
 
-  return currentPage ? (
+  return (
     <div className="ReadView">
-      <h1>{currentPage}</h1>
+      <h1>{currentPage ? currentPage : "New page"}</h1>
       <section>
         {reactStringReplace(pages[currentPage], /\[\[(.*?)]]/g, (match) => (
           <span
             className={["link"]
-              .concat(!pages[match] ? ["unlinked"] : [])
+              .concat(pages[match] === undefined ? ["unlinked"] : [])
               .join(" ")}
             onClick={() => {
-              if (!pages[match]) {
+              if (pages[match] === undefined) {
                 setPages((prevState) => {
                   return {
                     ...prevState,
-                    [match]: "Enter text here...",
+                    [match]: "",
                   };
                 });
+
+                setMode("edit");
               }
 
               setCurrentPage(match);
@@ -33,10 +36,6 @@ const ReadView = () => {
         ))}
       </section>
     </div>
-  ) : (
-    <>
-      <NewPageForm />
-    </>
   );
 };
 
