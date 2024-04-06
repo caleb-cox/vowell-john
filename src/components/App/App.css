@@ -27,15 +27,15 @@ body {
 }
 
 .read-mode {
-  --background-color: hsl(210, 100%, 80%);
+  --background-color: #99ccff;
 }
 
 .edit-mode {
-  --background-color: hsl(90, 100%, 80%);
+  --background-color: #ccff99;
 }
 
 .index-mode {
-  --background-color: hsl(330, 100%, 80%);
+  --background-color: #ff99cc;
 }
 
 #root {

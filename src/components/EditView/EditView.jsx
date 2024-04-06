@@ -6,6 +6,7 @@ import "./EditView.css";
 const EditView = () => {
   const { setMode, pages, currentPage, setPages } = useAppContext();
   const [text, setText] = useState(pages[currentPage]);
+  const [openModal, setOpenModal] = useState(false);
 
   const wordCount = (text.match(/\S+/g) || "").length;
 
@@ -42,13 +43,37 @@ const EditView = () => {
         <Button className="word-count" active={true}>
           {wordCount}
         </Button>
-        <Button className="material-symbols-outlined" onClick={deletePage}>
+        <Button
+          className="material-symbols-outlined"
+          onClick={() => setOpenModal(true)}
+        >
           Delete
         </Button>
         <Button className="material-symbols-outlined" onClick={savePage}>
           Save
         </Button>
       </div>
+      {openModal && (
+        <div className="modal-wrapper">
+          <div className="modal">
+            <h1>Delete?</h1>
+            <div className="buttons">
+              <Button
+                className="material-symbols-outlined"
+                onClick={() => setOpenModal(false)}
+              >
+                cancel
+              </Button>
+              <Button
+                className="material-symbols-outlined"
+                onClick={deletePage}
+              >
+                check_circle
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

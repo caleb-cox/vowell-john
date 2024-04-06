@@ -4,6 +4,12 @@
   cursor: pointer;
   user-select: none;
   text-transform: uppercase;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.Button.material-symbols-outlined {
+  font-size: 1.5rem;
 }
 
 .Button.active {
