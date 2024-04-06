@@ -9,7 +9,7 @@ const ModeSelector = () => {
     <div className="ModeSelector">
       <Button
         className="material-symbols-outlined"
-        active={mode === "index"}
+        disabled={mode === "index"}
         onClick={() => {
           setMode("index");
         }}
@@ -18,7 +18,7 @@ const ModeSelector = () => {
       </Button>
       <Button
         className="material-symbols-outlined"
-        active={mode === "read"}
+        disabled={mode === "read"}
         onClick={() => {
           setMode("read");
         }}
@@ -27,7 +27,7 @@ const ModeSelector = () => {
       </Button>
       <Button
         className="material-symbols-outlined"
-        active={mode === "edit"}
+        disabled={mode === "edit"}
         onClick={() => {
           setMode("edit");
         }}

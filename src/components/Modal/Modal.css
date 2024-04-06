@@ -1,0 +1,17 @@
+.Modal.wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100dvh;
+  width: 100%;
+  background-color: var(--overlay-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Modal .content {
+  border: 0.125rem solid var(--foreground-color);
+  padding: 2rem;
+  background-color: var(--background-color);
+}

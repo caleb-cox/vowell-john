@@ -34,35 +34,13 @@
   flex: 1 1 0;
 }
 
-.EditView .modal-wrapper {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100dvh;
-  width: 100%;
-  background-color: color-mix(
-    in srgb,
-    var(--background-color) 75%,
-    transparent
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.EditView .modal {
-  border: 0.125rem solid var(--foreground-color);
-  padding: 2rem;
-  background-color: var(--background-color);
-}
-
-.EditView .modal .buttons {
+.EditView .Modal .buttons {
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
   width: 17rem;
 }
 
-.EditView .modal .buttons .Button {
+.EditView .Modal .Button {
   flex: 1 1 0;
 }

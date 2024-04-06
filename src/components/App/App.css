@@ -24,6 +24,7 @@ body {
   justify-content: center;
   background-color: var(--background-color);
   color: var(--foreground-color);
+  --overlay-color: color-mix(in srgb, var(--background-color) 75%, transparent);
 }
 
 .read-mode {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAppContext } from "@/components/App";
 import Button from "@/components/Button";
+import Modal from "@/components/Modal";
 import "./EditView.css";
 
 const EditView = () => {
@@ -40,7 +41,7 @@ const EditView = () => {
         onChange={(e) => setText(e.target.value)}
       />
       <div className="controls">
-        <Button className="word-count" active={true}>
+        <Button className="word-count" disabled={true}>
           {wordCount}
         </Button>
         <Button
@@ -53,27 +54,20 @@ const EditView = () => {
           Save
         </Button>
       </div>
-      {openModal && (
-        <div className="modal-wrapper">
-          <div className="modal">
-            <h1>Delete?</h1>
-            <div className="buttons">
-              <Button
-                className="material-symbols-outlined"
-                onClick={() => setOpenModal(false)}
-              >
-                cancel
-              </Button>
-              <Button
-                className="material-symbols-outlined"
-                onClick={deletePage}
-              >
-                check_circle
-              </Button>
-            </div>
-          </div>
+      <Modal visible={openModal}>
+        <h1>Delete?</h1>
+        <div className="buttons">
+          <Button
+            className="material-symbols-outlined"
+            onClick={() => setOpenModal(false)}
+          >
+            cancel
+          </Button>
+          <Button className="material-symbols-outlined" onClick={deletePage}>
+            check_circle
+          </Button>
         </div>
-      )}
+      </Modal>
     </div>
   );
 };
