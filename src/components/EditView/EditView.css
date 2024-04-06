@@ -38,9 +38,8 @@
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
-  width: 17rem;
 }
 
 .EditView .Modal .Button {
-  flex: 1 1 0;
+  width: 8rem;
 }
