@@ -8,9 +8,14 @@
   flex-grow: 1;
   outline: none;
   border: 0.125rem solid var(--foreground-color);
+  border-radius: 0;
   padding: 0.5rem;
   background-color: inherit;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+}
+
+.NewPageForm input::placeholder {
+  color: color-mix(in srgb, var(--foreground-color) 50%, transparent);
 }

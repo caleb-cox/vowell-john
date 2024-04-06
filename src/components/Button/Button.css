@@ -1,4 +1,4 @@
-.Button {
+.Button.material-symbols-outlined {
   border: 0.125rem solid var(--foreground-color);
   padding: 0.5rem;
   cursor: pointer;
@@ -6,10 +6,8 @@
   text-transform: uppercase;
   font-size: 1.5rem;
   line-height: 1;
-}
-
-.Button.material-symbols-outlined {
-  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .Button.disabled {
@@ -19,5 +17,6 @@
 }
 
 .Button:hover:not(.disabled) {
-  text-decoration: underline;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
 }

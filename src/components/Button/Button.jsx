@@ -1,15 +1,15 @@
 import "./Button.css";
 
-const Button = ({ disabled, onClick, className, children }) => {
+const Button = ({ icon, disabled, onClick, className }) => {
   return (
     <div
-      className={["Button"]
+      className={["Button", "material-symbols-outlined"]
         .concat(className ? [className] : [])
         .concat(disabled ? ["disabled"] : [])
         .join(" ")}
       onClick={disabled ? undefined : onClick}
     >
-      {children}
+      {icon}
     </div>
   );
 };

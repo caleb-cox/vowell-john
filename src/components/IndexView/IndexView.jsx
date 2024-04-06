@@ -1,31 +1,39 @@
+import { useState } from "react";
 import { useAppContext } from "@/components/App";
-import NewPageForm from "@/components/NewPageForm";
+import Button from "@/components/Button";
 import "./IndexView.css";
 
 const IndexView = () => {
-  const { setMode, pages, currentPage, setCurrentPage } = useAppContext();
+  const { setMode, pages, setCurrentPage } = useAppContext();
 
-  return currentPage ? (
+  return (
     <div className="IndexView">
-      {Object.keys(pages)
-        .sort()
-        .map((page) => {
-          return (
-            <div
-              key={page}
-              className="page"
-              onClick={() => {
-                setCurrentPage(page);
-                setMode("read");
-              }}
-            >
-              {page}
-            </div>
-          );
-        })}
+      <div className="pages">
+        {Object.keys(pages)
+          .sort()
+          .map((page) => {
+            return (
+              <div
+                key={page}
+                className="page"
+                onClick={() => {
+                  setCurrentPage(page);
+                  setMode("read");
+                }}
+              >
+                {page}
+              </div>
+            );
+          })}
+      </div>
+      <Button
+        icon="add_circle"
+        onClick={() => {
+          setCurrentPage(undefined);
+          setMode("edit");
+        }}
+      />
     </div>
-  ) : (
-    <NewPageForm />
   );
 };
 

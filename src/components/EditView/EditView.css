@@ -34,6 +34,20 @@
   flex: 1 1 0;
 }
 
+.EditView .word-count {
+  border: 0.125rem solid var(--foreground-color);
+  padding: 0.5rem;
+  cursor: default;
+  user-select: none;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  background-color: var(--foreground-color);
+  color: var(--background-color);
+}
+
 .EditView .Modal .buttons {
   margin-top: 1rem;
   display: flex;

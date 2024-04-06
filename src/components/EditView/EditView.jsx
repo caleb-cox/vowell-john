@@ -49,31 +49,15 @@ const EditView = () => {
         onChange={(e) => setText(e.target.value)}
       />
       <div className="controls">
-        <Button className="word-count" disabled={true}>
-          {wordCount}
-        </Button>
-        <Button
-          className="material-symbols-outlined"
-          onClick={() => setOpenModal(true)}
-        >
-          Delete
-        </Button>
-        <Button className="material-symbols-outlined" onClick={savePage}>
-          Save
-        </Button>
+        <div className="word-count">{wordCount}</div>
+        <Button icon="delete" onClick={() => setOpenModal(true)} />
+        <Button icon="save" onClick={savePage} />
       </div>
       <Modal visible={openModal}>
         <h1>Delete?</h1>
         <div className="buttons">
-          <Button
-            className="material-symbols-outlined"
-            onClick={() => setOpenModal(false)}
-          >
-            cancel
-          </Button>
-          <Button className="material-symbols-outlined" onClick={deletePage}>
-            check_circle
-          </Button>
+          <Button icon="cancel" onClick={() => setOpenModal(false)} />
+          <Button icon="check_circle" onClick={deletePage} />
         </div>
       </Modal>
     </div>

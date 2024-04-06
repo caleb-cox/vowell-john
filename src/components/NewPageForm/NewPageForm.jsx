@@ -8,7 +8,10 @@ const NewPageForm = () => {
 
   const [newPageTitle, setNewPageTitle] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newPageTitle) return;
+
     if (!pages[newPageTitle]) {
       setPages((prevState) => {
         return {
@@ -23,16 +26,14 @@ const NewPageForm = () => {
 
   return (
     <div className="NewPageForm">
-      <h1>Create new page?</h1>
+      <h1>New page:</h1>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Title"
           value={newPageTitle}
           onChange={(e) => setNewPageTitle(e.target.value)}
         />
-        <Button className="material-symbols-outlined" onClick={handleSubmit}>
-          add
-        </Button>
+        <Button icon="add_circle" onClick={handleSubmit} />
       </form>
     </div>
   );
