@@ -1,10 +1,11 @@
 import { useAppContext } from "@/components/App";
+import NewPageForm from "@/components/NewPageForm";
 import "./IndexView.css";
 
 const IndexView = () => {
-  const { setMode, pages, setCurrentPage } = useAppContext();
+  const { setMode, pages, currentPage, setCurrentPage } = useAppContext();
 
-  return (
+  return currentPage ? (
     <div className="IndexView">
       {Object.keys(pages)
         .sort()
@@ -23,6 +24,8 @@ const IndexView = () => {
           );
         })}
     </div>
+  ) : (
+    <NewPageForm />
   );
 };
 

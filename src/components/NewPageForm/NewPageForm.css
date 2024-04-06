@@ -1,0 +1,16 @@
+.NewPageForm form {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.NewPageForm input {
+  flex-grow: 1;
+  outline: none;
+  border: 0.125rem solid var(--foreground-color);
+  padding: 0.5rem;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

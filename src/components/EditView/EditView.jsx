@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "@/components/App";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
+import NewPageForm from "@/components/NewPageForm";
 import "./EditView.css";
 
 const EditView = () => {
-  const { setMode, pages, currentPage, setPages } = useAppContext();
+  const { setMode, pages, setPages, currentPage, setCurrentPage } =
+    useAppContext();
   const [text, setText] = useState(pages[currentPage]);
   const [openModal, setOpenModal] = useState(false);
 
-  const wordCount = (text.match(/\S+/g) || "").length;
+  const wordCount = (text?.match(/\S+/g) || "").length;
+
+  useEffect(() => {
+    setText(pages[currentPage]);
+  }, [currentPage]);
 
   const deletePage = () => {
+    setCurrentPage(undefined);
+
     setPages((prevState) => {
       const newState = { ...prevState };
       delete newState[currentPage];
@@ -32,7 +40,7 @@ const EditView = () => {
     setMode("read");
   };
 
-  return (
+  return currentPage ? (
     <div className="EditView">
       <h1>{currentPage}</h1>
       <textarea
@@ -69,6 +77,10 @@ const EditView = () => {
         </div>
       </Modal>
     </div>
+  ) : (
+    <>
+      <NewPageForm />
+    </>
   );
 };
 

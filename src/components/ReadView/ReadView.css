@@ -25,7 +25,8 @@
 }
 
 .ReadView .link.unlinked {
-  text-decoration: underline dotted;
+  text-decoration: underline;
+  text-decoration-style: dotted;
 }
 
 .ReadView .link:hover {

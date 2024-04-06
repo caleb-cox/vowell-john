@@ -7,8 +7,8 @@ import "./App.css";
 
 const localStorageIsAvailable = (() => {
   try {
-    localStorage.setItem("__test", "__test");
-    localStorage.removeItem("__test");
+    localStorage.setItem("__test__", "__test__");
+    localStorage.removeItem("__test__");
     return true;
   } catch {
     return false;
@@ -30,39 +30,26 @@ const App = () => {
   }, [mode]);
 
   const [pages, setPages] = useState(
-    (localStorageIsAvailable && JSON.parse(localStorage.getItem("pages"))) || {
-      "!!! Start Here": "Enter text here...",
-    }
+    (localStorageIsAvailable && JSON.parse(localStorage.getItem("pages"))) || {}
   );
 
   useEffect(() => {
-    // When a page is deleted, let's unfuck that situation
-    if (!pages[currentPage]) {
-      setCurrentPage(Object.keys(pages).sort()[0]);
-    }
-
     if (!localStorageIsAvailable) return;
     localStorage.setItem("pages", JSON.stringify(pages));
   }, [pages]);
 
   const [currentPage, setCurrentPage] = useState(
     (localStorageIsAvailable && localStorage.getItem("currentPage")) ||
-      Object.keys(pages)[0]
+      undefined
   );
 
   useEffect(() => {
-    // When a page is created, let's unfuck THAT situation
-    if (!pages[currentPage]) {
-      setPages((prevState) => {
-        return {
-          ...prevState,
-          [currentPage]: "Enter text here...",
-        };
-      });
-    }
-
     if (!localStorageIsAvailable) return;
-    localStorage.setItem("currentPage", currentPage);
+    if (currentPage) {
+      localStorage.setItem("currentPage", currentPage);
+    } else {
+      localStorage.removeItem("currentPage");
+    }
   }, [currentPage]);
 
   return (
