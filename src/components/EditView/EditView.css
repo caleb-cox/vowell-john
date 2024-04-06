@@ -7,9 +7,10 @@
 
 .EditView h1 {
   font-size: 2rem;
-  overflow: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 
 .EditView textarea {
@@ -33,9 +34,6 @@
 }
 
 .EditView .word-count {
-  background-color: var(--foreground-color);
-  color: var(--background-color);
-  padding: 0.5rem;
-  border: 0.125rem solid var(--foreground-color);
-  user-select: none;
+  font-size: 1.5rem;
+  line-height: 1;
 }

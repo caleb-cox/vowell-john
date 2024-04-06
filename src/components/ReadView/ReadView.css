@@ -7,9 +7,10 @@
 
 .ReadView h1 {
   font-size: 2rem;
-  overflow: hidden;
+  overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 
 .ReadView section {

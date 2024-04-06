@@ -9,6 +9,7 @@
 .Button.active {
   background-color: var(--foreground-color);
   color: var(--background-color);
+  cursor: default;
 }
 
 .Button:hover:not(.active) {

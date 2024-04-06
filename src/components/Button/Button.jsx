@@ -1,9 +1,12 @@
 import "./Button.css";
 
-const Button = ({ active, onClick, children }) => {
+const Button = ({ active, onClick, className, children }) => {
   return (
     <div
-      className={["Button"].concat(active ? ["active"] : []).join(" ")}
+      className={["Button"]
+        .concat(className ? [className] : [])
+        .concat(active ? ["active"] : [])
+        .join(" ")}
       onClick={onClick}
     >
       {children}

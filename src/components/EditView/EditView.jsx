@@ -39,9 +39,15 @@ const EditView = () => {
         onChange={(e) => setText(e.target.value)}
       />
       <div className="controls">
-        <div className="word-count">{wordCount}</div>
-        <Button onClick={deletePage}>Delete</Button>
-        <Button onClick={savePage}>Save</Button>
+        <Button className="word-count" active={true}>
+          {wordCount}
+        </Button>
+        <Button className="material-symbols-outlined" onClick={deletePage}>
+          Delete
+        </Button>
+        <Button className="material-symbols-outlined" onClick={savePage}>
+          Save
+        </Button>
       </div>
     </div>
   );

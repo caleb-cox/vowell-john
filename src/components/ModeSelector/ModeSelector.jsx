@@ -8,28 +8,31 @@ const ModeSelector = () => {
   return (
     <div className="ModeSelector">
       <Button
+        className="material-symbols-outlined"
         active={mode === "index"}
         onClick={() => {
           setMode("index");
         }}
       >
-        Index
+        folder_open
       </Button>
       <Button
+        className="material-symbols-outlined"
         active={mode === "read"}
         onClick={() => {
           setMode("read");
         }}
       >
-        Read
+        draft
       </Button>
       <Button
+        className="material-symbols-outlined"
         active={mode === "edit"}
         onClick={() => {
           setMode("edit");
         }}
       >
-        Edit
+        edit
       </Button>
     </div>
   );
