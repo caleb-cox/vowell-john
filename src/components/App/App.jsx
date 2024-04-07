@@ -36,9 +36,13 @@ const App = () => {
       method: "get",
       url: "https://vowell-john-back-end.glitch.me/pages",
       headers: { admin_key: "toadspit" },
-    }).then((response) => {
-      setPages(response.data.pages);
-    });
+    })
+      .then((response) => {
+        setPages(response.data.pages);
+      })
+      .catch(() => {
+        /* no op */
+      });
   }, []);
 
   useEffect(() => {
@@ -95,7 +99,12 @@ const App = () => {
   };
 
   const deleteCurrentPage = () => {
-    Promise.resolve()
+    axios({
+      method: "delete",
+      url: "https://vowell-john-back-end.glitch.me/page",
+      headers: { admin_key: "toadspit" },
+      data: { id: currentPageId },
+    })
       .then(() => {
         setPages((prevState) =>
           prevState.filter((page) => page.id !== currentPageId)
