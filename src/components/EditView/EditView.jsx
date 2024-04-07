@@ -6,7 +6,7 @@ import NewPageForm from "@/components/NewPageForm";
 import "./EditView.css";
 
 const EditView = () => {
-  const { currentPage } = useAppContext();
+  const { currentPage, updateCurrentPage, deleteCurrentPage } = useAppContext();
 
   const [text, setText] = useState(currentPage?.text);
   const [openModal, setOpenModal] = useState(false);
@@ -16,26 +16,6 @@ const EditView = () => {
   useEffect(() => {
     setText(currentPage?.text);
   }, [currentPage]);
-
-  const deletePage = () => {
-    //   setCurrentPageId(undefined);
-    //   setPages((prevState) => {
-    //     const newState = { ...prevState };
-    //     delete newState[currentPageId];
-    //     return newState;
-    //   });
-    //   setMode("index");
-  };
-
-  const savePage = () => {
-    // setPages((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     [currentPageId]: text,
-    //   };
-    // });
-    // setMode("read");
-  };
 
   return currentPage?.title ? (
     <div className="EditView">
@@ -49,13 +29,13 @@ const EditView = () => {
       <div className="controls">
         <div className="word-count">{wordCount}</div>
         <Button icon="delete" onClick={() => setOpenModal(true)} />
-        <Button icon="save" onClick={savePage} />
+        <Button icon="save" onClick={() => updateCurrentPage(text)} />
       </div>
       <Modal visible={openModal}>
         <h1>Delete?</h1>
         <div className="buttons">
           <Button icon="cancel" onClick={() => setOpenModal(false)} />
-          <Button icon="check_circle" onClick={deletePage} />
+          <Button icon="check_circle" onClick={deleteCurrentPage} />
         </div>
       </Modal>
     </div>

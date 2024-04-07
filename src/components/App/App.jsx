@@ -47,9 +47,6 @@ const App = () => {
 
   useEffect(() => {
     document.body.classList.value = `${mode}-mode`;
-
-    if (!localStorageIsAvailable) return;
-    localStorage.setItem("mode", mode);
   }, [mode]);
 
   const createPage = (title) => {
@@ -73,6 +70,39 @@ const App = () => {
       });
   };
 
+  const updateCurrentPage = (text) => {
+    Promise.resolve()
+      .then(() => {
+        setPages((prevState) => {
+          const newState = [...prevState];
+          newState.splice(
+            newState.findIndex((page) => page.id === currentPageId),
+            1,
+            { ...currentPage, text }
+          );
+          return newState;
+        });
+        setMode("read");
+      })
+      .catch(() => {
+        /* no op */
+      });
+  };
+
+  const deleteCurrentPage = () => {
+    Promise.resolve()
+      .then(() => {
+        setPages((prevState) =>
+          prevState.filter((page) => page.id !== currentPageId)
+        );
+        setCurrentPageId(undefined);
+        setMode("index");
+      })
+      .catch(() => {
+        /* no op */
+      });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -82,6 +112,8 @@ const App = () => {
         setCurrentPageId,
         setMode,
         createPage,
+        updateCurrentPage,
+        deleteCurrentPage,
       }}
     >
       <ModeSelector />
