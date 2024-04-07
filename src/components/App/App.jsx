@@ -52,7 +52,7 @@ const App = () => {
   const createPage = (title) => {
     if (!title || pages.find((page) => page.title === title)) return;
 
-    return axios({
+    axios({
       method: "post",
       url: "https://vowell-john-back-end.glitch.me/page",
       headers: { admin_key: "toadspit" },
@@ -71,7 +71,12 @@ const App = () => {
   };
 
   const updateCurrentPage = (text) => {
-    Promise.resolve()
+    axios({
+      method: "put",
+      url: "https://vowell-john-back-end.glitch.me/page",
+      headers: { admin_key: "toadspit" },
+      data: { id: currentPageId, text },
+    })
       .then(() => {
         setPages((prevState) => {
           const newState = [...prevState];
