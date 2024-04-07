@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import axios from "axios";
 import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
 import ReadView from "@/components/ReadView";
@@ -18,6 +19,16 @@ const localStorageIsAvailable = (() => {
 const AppContext = createContext();
 
 const App = () => {
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "https://earthy-rogue-punishment.glitch.me/pages",
+      headers: { admin_key: "toadspit" },
+    }).then((response) => {
+      console.log(response);
+    });
+  }, []);
+
   const [mode, setMode] = useState(
     (localStorageIsAvailable && localStorage.getItem("mode")) || "index"
   );
