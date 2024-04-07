@@ -1,4 +1,10 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useCallback,
+  useContext,
+} from "react";
 import axios from "axios";
 import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
@@ -19,16 +25,40 @@ const localStorageIsAvailable = (() => {
 const AppContext = createContext();
 
 const App = () => {
+  // Pages - saved to back end
+  const [pages, setPages] = useState([]);
+
   useEffect(() => {
+    localStorage.removeItem("pages");
+
     axios({
       method: "get",
-      url: "https://earthy-rogue-punishment.glitch.me/pages",
+      url: "https://vowell-john-back-end.glitch.me/pages",
       headers: { admin_key: "toadspit" },
     }).then((response) => {
-      console.log(response);
+      setPages(response.data.pages);
     });
   }, []);
 
+  // Current page - saved to localStorage
+  const [currentPageId, setCurrentPageId] = useState(
+    (localStorageIsAvailable && localStorage.getItem("currentPageId")) ||
+      undefined
+  );
+  const [currentPage, setCurrentPage] = useState();
+
+  useEffect(() => {
+    setCurrentPage(pages.find((page) => page.id === currentPageId));
+
+    if (!localStorageIsAvailable) return;
+    if (currentPageId) {
+      localStorage.setItem("currentPageId", currentPageId);
+    } else {
+      localStorage.removeItem("currentPageId");
+    }
+  }, [currentPageId]);
+
+  // Mode - saved to localStorage
   const [mode, setMode] = useState(
     (localStorageIsAvailable && localStorage.getItem("mode")) || "index"
   );
@@ -40,32 +70,16 @@ const App = () => {
     localStorage.setItem("mode", mode);
   }, [mode]);
 
-  const [pages, setPages] = useState(
-    (localStorageIsAvailable && JSON.parse(localStorage.getItem("pages"))) || {}
-  );
-
-  useEffect(() => {
-    if (!localStorageIsAvailable) return;
-    localStorage.setItem("pages", JSON.stringify(pages));
-  }, [pages]);
-
-  const [currentPage, setCurrentPage] = useState(
-    (localStorageIsAvailable && localStorage.getItem("currentPage")) ||
-      undefined
-  );
-
-  useEffect(() => {
-    if (!localStorageIsAvailable) return;
-    if (currentPage) {
-      localStorage.setItem("currentPage", currentPage);
-    } else {
-      localStorage.removeItem("currentPage");
-    }
-  }, [currentPage]);
-
   return (
     <AppContext.Provider
-      value={{ mode, setMode, pages, setPages, currentPage, setCurrentPage }}
+      value={{
+        pages,
+        setPages,
+        currentPage,
+        setCurrentPageId,
+        mode,
+        setMode,
+      }}
     >
       <ModeSelector />
       {mode === "index" && <IndexView />}

@@ -1,27 +1,26 @@
-import { useState } from "react";
 import { useAppContext } from "@/components/App";
 import Button from "@/components/Button";
 import "./IndexView.css";
 
 const IndexView = () => {
-  const { setMode, pages, setCurrentPage } = useAppContext();
+  const { pages, setCurrentPageId, setMode } = useAppContext();
 
   return (
     <div className="IndexView">
       <div className="pages">
-        {Object.keys(pages)
-          .sort()
-          .map((page) => {
+        {[...pages]
+          .sort((a, b) => a.id - b.id)
+          .map(({ id, title }) => {
             return (
               <div
-                key={page}
+                key={id}
                 className="page"
                 onClick={() => {
-                  setCurrentPage(page);
+                  setCurrentPageId(id);
                   setMode("read");
                 }}
               >
-                {page}
+                {title}
               </div>
             );
           })}
@@ -29,7 +28,7 @@ const IndexView = () => {
       <Button
         icon="add_circle"
         onClick={() => {
-          setCurrentPage(undefined);
+          setCurrentPageId(undefined);
           setMode("edit");
         }}
       />

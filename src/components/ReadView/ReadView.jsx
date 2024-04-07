@@ -4,36 +4,37 @@ import NewPageForm from "@/components/NewPageForm";
 import "./ReadView.css";
 
 const ReadView = () => {
-  const { setMode, pages, setPages, currentPage, setCurrentPage } =
-    useAppContext();
+  const { pages, currentPage } = useAppContext();
 
   return (
     <div className="ReadView">
-      <h1>{currentPage ? currentPage : "New page"}</h1>
+      <h1>{currentPage?.title || "New page"}</h1>
       <section>
-        {reactStringReplace(pages[currentPage], /\[\[(.*?)]]/g, (match) => (
-          <span
-            className={["link"]
-              .concat(pages[match] === undefined ? ["unlinked"] : [])
-              .join(" ")}
-            onClick={() => {
-              if (pages[match] === undefined) {
-                setPages((prevState) => {
-                  return {
-                    ...prevState,
-                    [match]: "",
-                  };
-                });
+        {reactStringReplace(currentPage?.text, /\[\[(.*?)]]/g, (match) => {
+          const unlinked = pages.find((page) => page.id === currentPageId);
+          return (
+            <span
+              className={["link"]
+                .concat(unlinked ? ["unlinked"] : [])
+                .join(" ")}
+              onClick={() => {
+                if (unlinked) {
+                  // setPages((prevState) => {
+                  //   return {
+                  //     ...prevState,
+                  //     [match]: "",
+                  //   };
+                  // });
+                  // setMode("edit");
+                }
 
-                setMode("edit");
-              }
-
-              setCurrentPage(match);
-            }}
-          >
-            {match}
-          </span>
-        ))}
+                // setCurrentPageId(match);
+              }}
+            >
+              {match}
+            </span>
+          );
+        })}
       </section>
     </div>
   );

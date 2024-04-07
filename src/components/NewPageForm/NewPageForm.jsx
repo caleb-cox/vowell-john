@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import "./NewPageForm.css";
 
 const NewPageForm = () => {
-  const { setMode, pages, setPages, setCurrentPage } = useAppContext();
+  const { pages, setPages, setCurrentPageId, setMode } = useAppContext();
 
   const [newPageTitle, setNewPageTitle] = useState("");
 
@@ -13,18 +13,18 @@ const NewPageForm = () => {
 
     if (!newPageTitle) return;
 
-    if (pages[newPageTitle] === undefined) {
-      setPages((prevState) => {
-        return {
-          ...prevState,
-          [newPageTitle]: "",
-        };
-      });
-    }
+    // if (pages[newPageTitle] === undefined) {
+    //   setPages((prevState) => {
+    //     return {
+    //       ...prevState,
+    //       [newPageTitle]: "",
+    //     };
+    //   });
+    // }
 
-    setCurrentPage(newPageTitle);
+    // setCurrentPageId(newPageTitle);
 
-    setMode("edit");
+    // setMode("edit");
   };
 
   return (

@@ -6,44 +6,40 @@ import NewPageForm from "@/components/NewPageForm";
 import "./EditView.css";
 
 const EditView = () => {
-  const { setMode, pages, setPages, currentPage, setCurrentPage } =
-    useAppContext();
+  const { currentPage } = useAppContext();
 
-  const [text, setText] = useState(pages[currentPage]);
+  const [text, setText] = useState(currentPage?.text);
   const [openModal, setOpenModal] = useState(false);
 
   const wordCount = (text?.match(/\S+/g) || "").length;
 
-  useEffect(() => {
-    setText(pages[currentPage]);
-  }, [currentPage]);
+  // useEffect(() => {
+  //   setText(currentPage?.text);
+  // }, [currentPageId]);
 
   const deletePage = () => {
-    setCurrentPage(undefined);
-
-    setPages((prevState) => {
-      const newState = { ...prevState };
-      delete newState[currentPage];
-      return newState;
-    });
-
-    setMode("index");
+    //   setCurrentPageId(undefined);
+    //   setPages((prevState) => {
+    //     const newState = { ...prevState };
+    //     delete newState[currentPageId];
+    //     return newState;
+    //   });
+    //   setMode("index");
   };
 
   const savePage = () => {
-    setPages((prevState) => {
-      return {
-        ...prevState,
-        [currentPage]: text,
-      };
-    });
-
-    setMode("read");
+    // setPages((prevState) => {
+    //   return {
+    //     ...prevState,
+    //     [currentPageId]: text,
+    //   };
+    // });
+    // setMode("read");
   };
 
-  return currentPage ? (
+  return currentPage?.title ? (
     <div className="EditView">
-      <h1>{currentPage}</h1>
+      <h1>{currentPage?.title}</h1>
       <textarea
         spellCheck={false}
         value={text}
