@@ -10,6 +10,7 @@ const NewPageForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!newPageTitle) return;
 
     if (pages[newPageTitle] === undefined) {

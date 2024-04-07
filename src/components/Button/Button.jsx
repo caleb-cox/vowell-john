@@ -1,10 +1,9 @@
 import "./Button.css";
 
-const Button = ({ icon, disabled, onClick, className }) => {
+const Button = ({ icon, disabled, onClick }) => {
   return (
     <div
       className={["Button", "material-symbols-outlined"]
-        .concat(className ? [className] : [])
         .concat(disabled ? ["disabled"] : [])
         .join(" ")}
       onClick={disabled ? undefined : onClick}
