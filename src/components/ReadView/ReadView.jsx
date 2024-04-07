@@ -10,17 +10,17 @@ const ReadView = () => {
       <h1>{currentPage?.title || "New page"}</h1>
       <section>
         {reactStringReplace(currentPage?.text, /\[\[(.*?)]]/g, (match) => {
-          const unlinked = pages.find((page) => page.id === currentPageId);
+          const linkedPage = pages.find((page) => page.title === match);
           return (
             <span
               className={["link"]
-                .concat(unlinked ? ["unlinked"] : [])
+                .concat(linkedPage ? [] : ["unlinked"])
                 .join(" ")}
               onClick={() => {
-                if (unlinked) {
-                  createPage(match);
+                if (linkedPage) {
+                  setCurrentPageId(linkedPage?.id);
                 } else {
-                  setCurrentPageId(currentPage?.id);
+                  createPage(match);
                 }
               }}
             >

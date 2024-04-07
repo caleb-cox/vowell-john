@@ -22,13 +22,15 @@ const App = () => {
   const [pages, setPages] = useState();
   const [currentPageId, setCurrentPageId] = useState();
   const [currentPage, setCurrentPage] = useState();
-  const [mode, setMode] = useState(
-    (localStorageIsAvailable && localStorage.getItem("mode")) || "index"
-  );
+  const [mode, setMode] = useState("index");
 
   useEffect(() => {
     // Delete this at some point
-    localStorage.removeItem("pages");
+    if (localStorageIsAvailable) {
+      localStorage.removeItem("pages");
+      localStorage.removeItem("mode");
+      localStorage.removeItem("currentPageId");
+    }
 
     axios({
       method: "get",
@@ -40,24 +42,8 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (pages && !currentPageId) {
-      setCurrentPageId(
-        (localStorageIsAvailable && localStorage.getItem("currentPageId")) ||
-          undefined
-      );
-    }
-  }, [pages]);
-
-  useEffect(() => {
-    setCurrentPage(pages?.find((page) => page.id === parseInt(currentPageId)));
-
-    if (!localStorageIsAvailable) return;
-    if (currentPageId) {
-      localStorage.setItem("currentPageId", currentPageId);
-    } else {
-      // localStorage.removeItem("currentPageId");
-    }
-  }, [currentPageId]);
+    setCurrentPage(pages?.find((page) => page.id === currentPageId));
+  }, [pages, currentPageId]);
 
   useEffect(() => {
     document.body.classList.value = `${mode}-mode`;
