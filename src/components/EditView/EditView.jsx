@@ -13,10 +13,6 @@ const EditView = () => {
 
   const wordCount = (text?.match(/\S+/g) || "").length;
 
-  // useEffect(() => {
-  //   setText(currentPage?.text);
-  // }, [currentPageId]);
-
   const deletePage = () => {
     //   setCurrentPageId(undefined);
     //   setPages((prevState) => {

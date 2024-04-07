@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-} from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
@@ -25,10 +19,15 @@ const localStorageIsAvailable = (() => {
 const AppContext = createContext();
 
 const App = () => {
-  // Pages - saved to back end
-  const [pages, setPages] = useState([]);
+  const [pages, setPages] = useState();
+  const [currentPageId, setCurrentPageId] = useState();
+  const [currentPage, setCurrentPage] = useState();
+  const [mode, setMode] = useState(
+    (localStorageIsAvailable && localStorage.getItem("mode")) || "index"
+  );
 
   useEffect(() => {
+    // Delete this at some point
     localStorage.removeItem("pages");
 
     axios({
@@ -40,28 +39,25 @@ const App = () => {
     });
   }, []);
 
-  // Current page - saved to localStorage
-  const [currentPageId, setCurrentPageId] = useState(
-    (localStorageIsAvailable && localStorage.getItem("currentPageId")) ||
-      undefined
-  );
-  const [currentPage, setCurrentPage] = useState();
+  useEffect(() => {
+    if (pages && !currentPageId) {
+      setCurrentPageId(
+        (localStorageIsAvailable && localStorage.getItem("currentPageId")) ||
+          undefined
+      );
+    }
+  }, [pages]);
 
   useEffect(() => {
-    setCurrentPage(pages.find((page) => page.id === currentPageId));
+    setCurrentPage(pages?.find((page) => page.id === parseInt(currentPageId)));
 
     if (!localStorageIsAvailable) return;
     if (currentPageId) {
       localStorage.setItem("currentPageId", currentPageId);
     } else {
-      localStorage.removeItem("currentPageId");
+      // localStorage.removeItem("currentPageId");
     }
   }, [currentPageId]);
-
-  // Mode - saved to localStorage
-  const [mode, setMode] = useState(
-    (localStorageIsAvailable && localStorage.getItem("mode")) || "index"
-  );
 
   useEffect(() => {
     document.body.classList.value = `${mode}-mode`;
@@ -70,21 +66,46 @@ const App = () => {
     localStorage.setItem("mode", mode);
   }, [mode]);
 
+  const createPage = (title) => {
+    if (!title || pages.find((page) => page.title === title)) return;
+
+    return axios({
+      method: "post",
+      url: "https://vowell-john-back-end.glitch.me/page",
+      headers: { admin_key: "toadspit" },
+      data: { title },
+    })
+      .then((response) => {
+        const newPage = response.data.newPage;
+
+        setPages((prevState) => [...prevState, newPage]);
+        setCurrentPageId(newPage.id);
+        setMode("edit");
+      })
+      .catch(() => {
+        /* no op */
+      });
+  };
+
   return (
     <AppContext.Provider
       value={{
         pages,
-        setPages,
         currentPage,
-        setCurrentPageId,
         mode,
+        setCurrentPageId,
         setMode,
+        createPage,
       }}
     >
       <ModeSelector />
-      {mode === "index" && <IndexView />}
-      {mode === "read" && <ReadView />}
-      {mode === "edit" && <EditView />}
+      {pages && (
+        <>
+          {mode === "index" && <IndexView />}
+          {mode === "read" && <ReadView />}
+          {mode === "edit" && <EditView />}
+        </>
+      )}
     </AppContext.Provider>
   );
 };

@@ -1,10 +1,9 @@
 import reactStringReplace from "react-string-replace";
 import { useAppContext } from "@/components/App";
-import NewPageForm from "@/components/NewPageForm";
 import "./ReadView.css";
 
 const ReadView = () => {
-  const { pages, currentPage } = useAppContext();
+  const { pages, currentPage, setCurrentPageId, createPage } = useAppContext();
 
   return (
     <div className="ReadView">
@@ -19,16 +18,10 @@ const ReadView = () => {
                 .join(" ")}
               onClick={() => {
                 if (unlinked) {
-                  // setPages((prevState) => {
-                  //   return {
-                  //     ...prevState,
-                  //     [match]: "",
-                  //   };
-                  // });
-                  // setMode("edit");
+                  createPage(match);
+                } else {
+                  setCurrentPageId(currentPage?.id);
                 }
-
-                // setCurrentPageId(match);
               }}
             >
               {match}

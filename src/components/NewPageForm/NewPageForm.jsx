@@ -4,27 +4,13 @@ import Button from "@/components/Button";
 import "./NewPageForm.css";
 
 const NewPageForm = () => {
-  const { pages, setPages, setCurrentPageId, setMode } = useAppContext();
+  const { createPage } = useAppContext();
 
   const [newPageTitle, setNewPageTitle] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!newPageTitle) return;
-
-    // if (pages[newPageTitle] === undefined) {
-    //   setPages((prevState) => {
-    //     return {
-    //       ...prevState,
-    //       [newPageTitle]: "",
-    //     };
-    //   });
-    // }
-
-    // setCurrentPageId(newPageTitle);
-
-    // setMode("edit");
+    createPage(newPageTitle);
   };
 
   return (

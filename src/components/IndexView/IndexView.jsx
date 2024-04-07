@@ -9,7 +9,7 @@ const IndexView = () => {
     <div className="IndexView">
       <div className="pages">
         {[...pages]
-          .sort((a, b) => a.id - b.id)
+          .sort((a, b) => a.title - b.title)
           .map(({ id, title }) => {
             return (
               <div
