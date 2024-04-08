@@ -23,6 +23,7 @@ const App = () => {
   const [currentPageId, setCurrentPageId] = useState();
   const [currentPage, setCurrentPage] = useState();
   const [mode, setMode] = useState("index");
+  const [lastSyncTime, setLastSyncTime] = useState();
 
   useEffect(() => {
     // Delete this at some point
@@ -32,17 +33,7 @@ const App = () => {
       localStorage.removeItem("currentPageId");
     }
 
-    axios({
-      method: "get",
-      url: "https://vowell-john-back-end.glitch.me/pages",
-      headers: { admin_key: "toadspit" },
-    })
-      .then((response) => {
-        setPages(response.data.pages);
-      })
-      .catch(() => {
-        /* no op */
-      });
+    getPages();
   }, []);
 
   useEffect(() => {
@@ -52,6 +43,21 @@ const App = () => {
   useEffect(() => {
     document.body.classList.value = `${mode}-mode`;
   }, [mode]);
+
+  const getPages = () => {
+    axios({
+      method: "get",
+      url: "https://vowell-john-back-end.glitch.me/pages",
+      headers: { admin_key: "toadspit" },
+    })
+      .then((response) => {
+        setLastSyncTime(new Date());
+        setPages(response.data.pages);
+      })
+      .catch(() => {
+        /* no op */
+      });
+  };
 
   const createPage = (title) => {
     if (!title || pages.find((page) => page.title === title)) return;
@@ -122,8 +128,10 @@ const App = () => {
         pages,
         currentPage,
         mode,
+        lastSyncTime,
         setCurrentPageId,
         setMode,
+        getPages,
         createPage,
         updateCurrentPage,
         deleteCurrentPage,
