@@ -1,5 +1,6 @@
 import { useAppContext } from "@/components/App";
 import Button from "@/components/Button";
+import DataBox from "@/components/DataBox";
 import "./IndexView.css";
 
 const IndexView = () => {
@@ -33,17 +34,15 @@ const IndexView = () => {
           }}
         />
         <Button icon="sync" onClick={getPages} />
-        <div className="last-sync-container">
-          <div className="label">Last sync:</div>
-          <div className="time">
-            {Intl.DateTimeFormat("en-US", {
-              hour12: false,
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-            }).format(lastSyncTime)}
-          </div>
-        </div>
+        <DataBox
+          label="Last sync:"
+          value={Intl.DateTimeFormat("en-US", {
+            hour12: false,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }).format(lastSyncTime)}
+        />
       </div>
     </div>
   );

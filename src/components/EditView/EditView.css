@@ -38,27 +38,6 @@
   flex: 1 1 0;
 }
 
-.EditView .word-count-container {
-  border: 0.125rem solid var(--foreground-color);
-  padding: 0.25rem 0.5rem;
-  cursor: default;
-  user-select: none;
-  text-transform: uppercase;
-  line-height: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--foreground-color);
-  color: var(--background-color);
-}
-
-.EditView .word-count-container .label {
-  font-size: 0.75rem;
-}
-
-.EditView .word-count-container .count {
-  font-size: 1.25rem;
-}
-
 .EditView .Modal .buttons {
   margin-top: 1rem;
   display: flex;

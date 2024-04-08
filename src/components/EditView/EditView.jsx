@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "@/components/App";
+import DataBox from "@/components/DataBox";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import NewPageForm from "@/components/NewPageForm";
@@ -25,10 +26,10 @@ const EditView = () => {
         onChange={(e) => setText(e.target.value)}
       />
       <div className="controls">
-        <div className="word-count-container">
-          <div className="label">Word count:</div>
-          <div className="count">{(text?.match(/\S+/g) || "").length}</div>
-        </div>
+        <DataBox
+          label="Word count:"
+          value={(text?.match(/\S+/g) || "").length}
+        />
         <Button icon="delete" onClick={() => setOpenModal(true)} />
         <Button icon="save" onClick={() => updateCurrentPage(text)} />
       </div>
