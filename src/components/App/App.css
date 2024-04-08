@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css?family=Nova+Mono");
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
-
 :root {
   --foreground-color: hsl(0, 0%, 10%);
   font-size: min(3.75vw, 16px);

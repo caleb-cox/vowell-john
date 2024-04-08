@@ -11,8 +11,6 @@ const EditView = () => {
   const [text, setText] = useState(currentPage?.text);
   const [openModal, setOpenModal] = useState(false);
 
-  const wordCount = (text?.match(/\S+/g) || "").length;
-
   useEffect(() => {
     setText(currentPage?.text);
   }, [currentPage]);
@@ -27,7 +25,10 @@ const EditView = () => {
         onChange={(e) => setText(e.target.value)}
       />
       <div className="controls">
-        <div className="word-count">{wordCount}</div>
+        <div className="word-count-container">
+          <div className="label">Word count:</div>
+          <div className="count">{(text?.match(/\S+/g) || "").length}</div>
+        </div>
         <Button icon="delete" onClick={() => setOpenModal(true)} />
         <Button icon="save" onClick={() => updateCurrentPage(text)} />
       </div>

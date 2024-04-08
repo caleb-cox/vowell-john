@@ -64,7 +64,6 @@ const App = () => {
     })
       .then((response) => {
         const newPage = response.data.newPage;
-
         setPages((prevState) => [...prevState, newPage]);
         setCurrentPageId(newPage.id);
         setMode("edit");
