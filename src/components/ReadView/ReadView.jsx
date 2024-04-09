@@ -13,6 +13,7 @@ const ReadView = () => {
           const linkedPage = pages.find((page) => page.title === match);
           return (
             <span
+              key={crypto.randomUUID()}
               className={["link"]
                 .concat(linkedPage ? [] : ["unlinked"])
                 .join(" ")}
