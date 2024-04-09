@@ -7,7 +7,7 @@ import NewPageForm from "@/components/NewPageForm";
 import "./EditView.css";
 
 const EditView = () => {
-  const { currentPage, updateCurrentPage, deleteCurrentPage } = useAppContext();
+  const { currentPage, updatePage, deletePage } = useAppContext();
 
   const [title, setTitle] = useState(currentPage?.title);
   const [text, setText] = useState(currentPage?.text);
@@ -38,13 +38,16 @@ const EditView = () => {
           value={(text?.match(/\S+/g) || "").length}
         />
         <Button icon="delete" onClick={() => setOpenModal(true)} />
-        <Button icon="save" onClick={() => updateCurrentPage(title, text)} />
+        <Button
+          icon="save"
+          onClick={() => updatePage({ ...currentPage, title, text })}
+        />
       </div>
       <Modal visible={openModal}>
         <h1>Delete?</h1>
         <div className="buttons">
           <Button icon="cancel" onClick={() => setOpenModal(false)} />
-          <Button icon="check_circle" onClick={deleteCurrentPage} />
+          <Button icon="check_circle" onClick={() => deletePage(currentPage)} />
         </div>
       </Modal>
     </div>

@@ -6,11 +6,11 @@ import "./PasswordForm.css";
 const PasswordForm = () => {
   const { setPassword } = useAppContext();
 
-  const [fieldValue, setFieldValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPassword(fieldValue);
+    setPassword(inputValue);
   };
 
   return (
@@ -20,8 +20,8 @@ const PasswordForm = () => {
         <input
           type="password"
           placeholder="Password"
-          value={fieldValue}
-          onChange={(e) => setFieldValue(e.target.value)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <Button icon="lock" onClick={handleSubmit} />
       </form>

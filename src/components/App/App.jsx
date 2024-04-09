@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useEffect, useContext } from "react";
+import { useImmer } from "use-immer";
 import axios from "axios";
 import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
@@ -11,25 +12,60 @@ import "./App.css";
 const AppContext = createContext();
 
 const App = () => {
-  const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState();
-  const [pages, setPages] = useState();
-  const [currentPageId, setCurrentPageId] = useState();
-  const [currentPage, setCurrentPage] = useState();
-  const [mode, setMode] = useState("locked");
-  const [lastSyncTime, setLastSyncTime] = useState();
+  const [state, updateState] = useImmer({
+    loading: false,
+    mode: "locked",
+    password: undefined,
+    pages: undefined,
+    lastSyncTime: undefined,
+    currentPage: undefined,
+  });
+
+  const { loading, mode, password, pages } = state;
 
   useEffect(() => {
     if (password) getPages();
   }, [password]);
 
   useEffect(() => {
-    setCurrentPage(pages?.find((page) => page.id === currentPageId));
-  }, [pages, currentPageId]);
-
-  useEffect(() => {
     document.body.classList.value = `${mode}-mode`;
   }, [mode]);
+
+  const setLoading = (loading) => {
+    updateState((draft) => {
+      draft.loading = loading;
+    });
+  };
+
+  const setMode = (mode) => {
+    updateState((draft) => {
+      draft.mode = mode;
+    });
+  };
+
+  const setPassword = (password) => {
+    updateState((draft) => {
+      draft.password = password;
+    });
+  };
+
+  const viewPage = (page) => {
+    updateState((draft) => {
+      draft.mode = "read";
+      draft.currentPage = page;
+    });
+  };
+
+  const viewNewPage = () => {
+    updateState((draft) => {
+      draft.mode = "edit";
+      draft.currentPage = undefined;
+    });
+  };
+
+  const findPageByTitle = (title) => {
+    return pages.find((p) => p.title === title);
+  };
 
   const getPages = () => {
     setLoading(true);
@@ -40,22 +76,20 @@ const App = () => {
     })
       .then(({ data }) => {
         if (data.success) {
-          setLastSyncTime(new Date());
-          setPages(data.pages);
-          setMode("index");
+          updateState((draft) => {
+            draft.loading = false;
+            draft.mode = "index";
+            draft.pages = data.pages;
+            draft.lastSyncTime = new Date();
+          });
         }
       })
       .catch(() => {
-        /* no op */
-      })
-      .finally(() => {
         setLoading(false);
       });
   };
 
   const createPage = (title) => {
-    if (!title || pages.find((page) => page.title === title)) return;
-
     setLoading(true);
     axios({
       method: "post",
@@ -65,71 +99,61 @@ const App = () => {
     })
       .then(({ data }) => {
         if (data.success) {
-          const newPage = data.newPage;
-          setPages((prevState) => [...prevState, newPage]);
-          setCurrentPageId(newPage.id);
-          setMode("edit");
+          updateState((draft) => {
+            draft.loading = false;
+            draft.mode = "edit";
+            draft.pages.push(data.newPage);
+            draft.currentPage = data.newPage;
+          });
         }
       })
       .catch(() => {
-        /* no op */
-      })
-      .finally(() => {
         setLoading(false);
       });
   };
 
-  const updateCurrentPage = (title, text) => {
+  const updatePage = (page) => {
     setLoading(true);
     axios({
       method: "put",
       url: "https://vowell-john-back-end.glitch.me/page",
       headers: { password },
-      data: { id: currentPageId, title, text },
+      data: page,
     })
       .then(({ data }) => {
         if (data.success) {
-          setPages((prevState) => {
-            const newState = [...prevState];
-            newState.splice(
-              newState.findIndex((page) => page.id === currentPageId),
-              1,
-              { ...currentPage, title, text }
-            );
-            return newState;
+          updateState((draft) => {
+            draft.loading = false;
+            draft.mode = "read";
+            draft.pages[draft.pages.findIndex((p) => p.id === page.id)] = page;
+            draft.currentPage = page;
           });
-          setMode("read");
         }
       })
       .catch(() => {
-        /* no op */
-      })
-      .finally(() => {
         setLoading(false);
       });
   };
 
-  const deleteCurrentPage = () => {
+  const deletePage = (page) => {
     setLoading(true);
     axios({
       method: "delete",
       url: "https://vowell-john-back-end.glitch.me/page",
       headers: { password },
-      data: { id: currentPageId },
+      data: { id: page.id },
     })
       .then(({ data }) => {
         if (data.success) {
-          setPages((prevState) =>
-            prevState.filter((page) => page.id !== currentPageId)
-          );
-          setCurrentPageId(undefined);
-          setMode("index");
+          updateState((draft) => {
+            draft.loading = false;
+            draft.mode = "index";
+            draft.pages = draft.pages.filter((p) => p.id !== page.id);
+            draft.currentPage = undefined;
+          });
         }
       })
       .catch(() => {
-        /* no op */
-      })
-      .finally(() => {
         setLoading(false);
       });
   };
@@ -139,17 +163,16 @@ const App = () => {
   return (
     <AppContext.Provider
       value={{
-        pages,
-        currentPage,
-        mode,
-        lastSyncTime,
-        setPassword,
-        setCurrentPageId,
+        ...state,
         setMode,
+        setPassword,
+        viewPage,
+        viewNewPage,
+        findPageByTitle,
         getPages,
         createPage,
-        updateCurrentPage,
-        deleteCurrentPage,
+        updatePage,
+        deletePage,
       }}
     >
       {pages ? (

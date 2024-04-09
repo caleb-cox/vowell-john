@@ -4,13 +4,14 @@ import Button from "@/components/Button";
 import "./NewPageForm.css";
 
 const NewPageForm = () => {
-  const { createPage } = useAppContext();
+  const { findPageByTitle, createPage } = useAppContext();
 
   const [newPageTitle, setNewPageTitle] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createPage(newPageTitle);
+    if (newPageTitle && !findPageByTitle(newPageTitle))
+      createPage(newPageTitle);
   };
 
   return (

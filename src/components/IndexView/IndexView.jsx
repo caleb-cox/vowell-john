@@ -4,35 +4,28 @@ import DataBox from "@/components/DataBox";
 import "./IndexView.css";
 
 const IndexView = () => {
-  const { pages, lastSyncTime, setCurrentPageId, setMode, getPages } =
+  const { pages, viewPage, viewNewPage, getPages, lastSyncTime } =
     useAppContext();
 
   return (
     <div className="IndexView">
       <div className="pages">
-        {[...pages].map(({ id, title }) => {
+        {pages.map((page) => {
           return (
             <div
-              key={id}
+              key={page.id}
               className="page"
               onClick={() => {
-                setCurrentPageId(id);
-                setMode("read");
+                viewPage(page);
               }}
             >
-              {title}
+              {page.title}
             </div>
           );
         })}
       </div>
       <div className="controls">
-        <Button
-          icon="add_circle"
-          onClick={() => {
-            setCurrentPageId(undefined);
-            setMode("edit");
-          }}
-        />
+        <Button icon="add_circle" onClick={viewNewPage} />
         <Button icon="sync" onClick={getPages} />
         <DataBox
           label="Last sync:"

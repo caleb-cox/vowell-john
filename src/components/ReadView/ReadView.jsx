@@ -4,14 +4,15 @@ import { useAppContext } from "@/components/App";
 import "./ReadView.css";
 
 const ReadView = () => {
-  const { pages, currentPage, setCurrentPageId, createPage } = useAppContext();
+  const { currentPage, findPageByTitle, viewPage, createPage } =
+    useAppContext();
 
   return (
     <div className="ReadView">
       <h1>{currentPage?.title || "New page"}</h1>
       <section>
         {reactStringReplace(currentPage?.text, /\[\[(.*?)]]/g, (match) => {
-          const linkedPage = pages.find((page) => page.title === match);
+          const linkedPage = findPageByTitle(match);
           return (
             <span
               key={uuidv4()}
@@ -20,7 +21,7 @@ const ReadView = () => {
                 .join(" ")}
               onClick={() => {
                 if (linkedPage) {
-                  setCurrentPageId(linkedPage?.id);
+                  viewPage(linkedPage);
                 } else {
                   createPage(match);
                 }
