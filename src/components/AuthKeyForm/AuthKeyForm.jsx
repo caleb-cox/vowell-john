@@ -17,6 +17,7 @@ const AuthKeyForm = () => {
     <div className="AuthKeyForm">
       <form onSubmit={handleSubmit}>
         <input
+          type="password"
           placeholder="Password"
           value={fieldValue}
           onChange={(e) => setFieldValue(e.target.value)}
