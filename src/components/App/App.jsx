@@ -84,9 +84,7 @@ const App = () => {
           });
         }
       })
-      .catch(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   };
 
   const createPage = (title) => {
@@ -107,9 +105,7 @@ const App = () => {
           });
         }
       })
-      .catch(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   };
 
   const updatePage = (page) => {
@@ -130,9 +126,7 @@ const App = () => {
           });
         }
       })
-      .catch(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   };
 
   const deletePage = (page) => {
@@ -153,9 +147,7 @@ const App = () => {
           });
         }
       })
-      .catch(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   };
 
   if (loading) return <LoadingView />;
