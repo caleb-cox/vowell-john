@@ -9,16 +9,18 @@ import "./EditView.css";
 const EditView = () => {
   const { currentPage, updateCurrentPage, deleteCurrentPage } = useAppContext();
 
+  const [title, setTitle] = useState(currentPage?.title);
   const [text, setText] = useState(currentPage?.text);
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
+    setTitle(currentPage?.title);
     setText(currentPage?.text);
   }, [currentPage]);
 
-  return currentPage?.title ? (
+  return currentPage ? (
     <div className="EditView">
-      <h1>{currentPage?.title}</h1>
+      <h1>{title}</h1>
       <textarea
         spellCheck={false}
         value={text}
@@ -31,7 +33,7 @@ const EditView = () => {
           value={(text?.match(/\S+/g) || "").length}
         />
         <Button icon="delete" onClick={() => setOpenModal(true)} />
-        <Button icon="save" onClick={() => updateCurrentPage(text)} />
+        <Button icon="save" onClick={() => updateCurrentPage(title, text)} />
       </div>
       <Modal visible={openModal}>
         <h1>Delete?</h1>

@@ -50,9 +50,11 @@ const App = () => {
       url: "https://vowell-john-back-end.glitch.me/pages",
       headers: { admin_key: "toadspit" },
     })
-      .then((response) => {
-        setLastSyncTime(new Date());
-        setPages(response.data.pages);
+      .then(({ data }) => {
+        if (data.success) {
+          setLastSyncTime(new Date());
+          setPages(data.pages);
+        }
       })
       .catch(() => {
         /* no op */
@@ -68,35 +70,39 @@ const App = () => {
       headers: { admin_key: "toadspit" },
       data: { title },
     })
-      .then((response) => {
-        const newPage = response.data.newPage;
-        setPages((prevState) => [...prevState, newPage]);
-        setCurrentPageId(newPage.id);
-        setMode("edit");
+      .then(({ data }) => {
+        if (data.success) {
+          const newPage = data.newPage;
+          setPages((prevState) => [...prevState, newPage]);
+          setCurrentPageId(newPage.id);
+          setMode("edit");
+        }
       })
       .catch(() => {
         /* no op */
       });
   };
 
-  const updateCurrentPage = (text) => {
+  const updateCurrentPage = (title, text) => {
     axios({
       method: "put",
       url: "https://vowell-john-back-end.glitch.me/page",
       headers: { admin_key: "toadspit" },
-      data: { id: currentPageId, text },
+      data: { id: currentPageId, title, text },
     })
-      .then(() => {
-        setPages((prevState) => {
-          const newState = [...prevState];
-          newState.splice(
-            newState.findIndex((page) => page.id === currentPageId),
-            1,
-            { ...currentPage, text }
-          );
-          return newState;
-        });
-        setMode("read");
+      .then(({ data }) => {
+        if (data.success) {
+          setPages((prevState) => {
+            const newState = [...prevState];
+            newState.splice(
+              newState.findIndex((page) => page.id === currentPageId),
+              1,
+              { ...currentPage, title, text }
+            );
+            return newState;
+          });
+          setMode("read");
+        }
       })
       .catch(() => {
         /* no op */
@@ -110,12 +116,14 @@ const App = () => {
       headers: { admin_key: "toadspit" },
       data: { id: currentPageId },
     })
-      .then(() => {
-        setPages((prevState) =>
-          prevState.filter((page) => page.id !== currentPageId)
-        );
-        setCurrentPageId(undefined);
-        setMode("index");
+      .then(({ data }) => {
+        if (data.success) {
+          setPages((prevState) =>
+            prevState.filter((page) => page.id !== currentPageId)
+          );
+          setCurrentPageId(undefined);
+          setMode("index");
+        }
       })
       .catch(() => {
         /* no op */
