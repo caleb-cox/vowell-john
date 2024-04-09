@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useAppContext } from "@/components/App";
 import Button from "@/components/Button";
-import "./AuthKeyForm.css";
+import "./PasswordForm.css";
 
-const AuthKeyForm = () => {
-  const { setAuthKey } = useAppContext();
+const PasswordForm = () => {
+  const { setPassword } = useAppContext();
 
   const [fieldValue, setFieldValue] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setAuthKey(fieldValue);
+    setPassword(fieldValue);
   };
 
   return (
-    <div className="AuthKeyForm">
+    <div className="PasswordForm">
       <form onSubmit={handleSubmit}>
         <input
           type="password"
@@ -28,4 +28,4 @@ const AuthKeyForm = () => {
   );
 };
 
-export default AuthKeyForm;
+export default PasswordForm;

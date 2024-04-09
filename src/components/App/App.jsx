@@ -4,13 +4,13 @@ import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
 import ReadView from "@/components/ReadView";
 import EditView from "@/components/EditView";
-import AuthKeyForm from "@/components/AuthKeyForm";
+import PasswordForm from "@/components/PasswordForm";
 import "./App.css";
 
 const AppContext = createContext();
 
 const App = () => {
-  const [authKey, setAuthKey] = useState();
+  const [password, setPassword] = useState();
   const [pages, setPages] = useState();
   const [currentPageId, setCurrentPageId] = useState();
   const [currentPage, setCurrentPage] = useState();
@@ -18,8 +18,8 @@ const App = () => {
   const [lastSyncTime, setLastSyncTime] = useState();
 
   useEffect(() => {
-    if (authKey) getPages();
-  }, [authKey]);
+    if (password) getPages();
+  }, [password]);
 
   useEffect(() => {
     setCurrentPage(pages?.find((page) => page.id === currentPageId));
@@ -33,7 +33,7 @@ const App = () => {
     axios({
       method: "get",
       url: "https://vowell-john-back-end.glitch.me/pages",
-      headers: { admin_key: authKey },
+      headers: { password },
     })
       .then(({ data }) => {
         if (data.success) {
@@ -53,7 +53,7 @@ const App = () => {
     axios({
       method: "post",
       url: "https://vowell-john-back-end.glitch.me/page",
-      headers: { admin_key: authKey },
+      headers: { password },
       data: { title },
     })
       .then(({ data }) => {
@@ -73,7 +73,7 @@ const App = () => {
     axios({
       method: "put",
       url: "https://vowell-john-back-end.glitch.me/page",
-      headers: { admin_key: authKey },
+      headers: { password },
       data: { id: currentPageId, title, text },
     })
       .then(({ data }) => {
@@ -99,7 +99,7 @@ const App = () => {
     axios({
       method: "delete",
       url: "https://vowell-john-back-end.glitch.me/page",
-      headers: { admin_key: authKey },
+      headers: { password },
       data: { id: currentPageId },
     })
       .then(({ data }) => {
@@ -123,7 +123,7 @@ const App = () => {
         currentPage,
         mode,
         lastSyncTime,
-        setAuthKey,
+        setPassword,
         setCurrentPageId,
         setMode,
         getPages,
@@ -132,7 +132,7 @@ const App = () => {
         deleteCurrentPage,
       }}
     >
-      {authKey && pages ? (
+      {password && pages ? (
         <>
           <ModeSelector />
           {mode === "index" && <IndexView />}
@@ -140,7 +140,7 @@ const App = () => {
           {mode === "edit" && <EditView />}
         </>
       ) : (
-        <AuthKeyForm />
+        <PasswordForm />
       )}
     </AppContext.Provider>
   );
