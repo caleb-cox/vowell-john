@@ -1,0 +1,11 @@
+.LoadingView {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoadingView h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}

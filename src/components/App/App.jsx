@@ -4,12 +4,14 @@ import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
 import ReadView from "@/components/ReadView";
 import EditView from "@/components/EditView";
+import LoadingView from "@/components/LoadingView";
 import PasswordForm from "@/components/PasswordForm";
 import "./App.css";
 
 const AppContext = createContext();
 
 const App = () => {
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState();
   const [pages, setPages] = useState();
   const [currentPageId, setCurrentPageId] = useState();
@@ -30,6 +32,7 @@ const App = () => {
   }, [mode]);
 
   const getPages = () => {
+    setLoading(true);
     axios({
       method: "get",
       url: "https://vowell-john-back-end.glitch.me/pages",
@@ -44,12 +47,16 @@ const App = () => {
       })
       .catch(() => {
         /* no op */
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const createPage = (title) => {
     if (!title || pages.find((page) => page.title === title)) return;
 
+    setLoading(true);
     axios({
       method: "post",
       url: "https://vowell-john-back-end.glitch.me/page",
@@ -66,10 +73,14 @@ const App = () => {
       })
       .catch(() => {
         /* no op */
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const updateCurrentPage = (title, text) => {
+    setLoading(true);
     axios({
       method: "put",
       url: "https://vowell-john-back-end.glitch.me/page",
@@ -92,10 +103,14 @@ const App = () => {
       })
       .catch(() => {
         /* no op */
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const deleteCurrentPage = () => {
+    setLoading(true);
     axios({
       method: "delete",
       url: "https://vowell-john-back-end.glitch.me/page",
@@ -113,8 +128,13 @@ const App = () => {
       })
       .catch(() => {
         /* no op */
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
+
+  if (loading) return <LoadingView />;
 
   return (
     <AppContext.Provider
