@@ -17,6 +17,7 @@
 .ReadView section {
   white-space: pre-wrap;
   overflow-y: auto;
+  word-break: break-word;
 }
 
 .ReadView .link {

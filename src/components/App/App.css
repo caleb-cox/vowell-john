@@ -51,7 +51,7 @@ body {
 #root {
   width: calc(100vw - 2rem);
   min-width: 25rem;
-  max-width: 60rem;
+  max-width: 40rem;
   height: calc(100dvh - 2rem);
   border: 0.125rem solid var(--foreground-color);
   padding: 1rem;
