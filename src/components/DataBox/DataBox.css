@@ -1,5 +1,6 @@
 .DataBox {
   border: 0.125rem solid var(--foreground-color);
+  padding: 0 0.5rem;
   cursor: default;
   user-select: none;
   text-transform: uppercase;
