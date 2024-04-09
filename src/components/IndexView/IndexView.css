@@ -18,9 +18,16 @@
   text-decoration: underline;
 }
 
-.IndexView .page:hover {
+.IndexView .page:active {
   background-color: var(--foreground-color);
   color: var(--background-color);
+}
+
+@media (hover: hover) {
+  .IndexView .page:hover {
+    background-color: var(--foreground-color);
+    color: var(--background-color);
+  }
 }
 
 .IndexView .controls {

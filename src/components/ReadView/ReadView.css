@@ -30,7 +30,14 @@
   text-decoration-style: dotted;
 }
 
-.ReadView .link:hover {
+.ReadView .link:active {
   background-color: var(--foreground-color);
   color: var(--background-color);
+}
+
+@media (hover: hover) {
+  .ReadView .link:hover {
+    background-color: var(--foreground-color);
+    color: var(--background-color);
+  }
 }

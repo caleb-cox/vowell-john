@@ -17,7 +17,14 @@
   cursor: default;
 }
 
-.Button:hover:not(.disabled) {
+.Button:active:not(.disabled) {
   background-color: var(--foreground-color);
   color: var(--background-color);
+}
+
+@media (hover: hover) {
+  .Button:hover:not(.disabled) {
+    background-color: var(--foreground-color);
+    color: var(--background-color);
+  }
 }
