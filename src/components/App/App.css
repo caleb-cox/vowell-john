@@ -34,7 +34,7 @@ body {
 }
 
 .edit-mode {
-  --background-color: var(var(--color-chartreuse));
+  --background-color: var(--color-chartreuse);
   --foreground-color: var(--color-black);
 }
 

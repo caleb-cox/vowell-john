@@ -132,7 +132,7 @@ const App = () => {
         deleteCurrentPage,
       }}
     >
-      {password && pages ? (
+      {pages ? (
         <>
           <ModeSelector />
           {mode === "index" && <IndexView />}
