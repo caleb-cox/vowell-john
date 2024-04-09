@@ -1,4 +1,5 @@
 import reactStringReplace from "react-string-replace";
+import { v4 as uuidv4 } from "uuid";
 import { useAppContext } from "@/components/App";
 import "./ReadView.css";
 
@@ -13,7 +14,7 @@ const ReadView = () => {
           const linkedPage = pages.find((page) => page.title === match);
           return (
             <span
-              key={crypto.randomUUID()}
+              key={uuidv4()}
               className={["link"]
                 .concat(linkedPage ? [] : ["unlinked"])
                 .join(" ")}

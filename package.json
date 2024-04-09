@@ -12,7 +12,8 @@
     "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-string-replace": "^1.1.1"
+    "react-string-replace": "^1.1.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
