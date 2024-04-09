@@ -1,7 +1,11 @@
 :root {
-  --foreground-color: hsl(0, 0%, 10%);
   font-size: min(3.75vw, 16px);
   line-height: 1.5;
+  --color-black: #1a1a1a;
+  --color-white: #e6e6e6;
+  --color-rose: #ff99cc;
+  --color-azure: #99ccff;
+  --color-chartreuse: #ccff99;
 }
 
 * {
@@ -25,15 +29,23 @@ body {
 }
 
 .read-mode {
-  --background-color: #99ccff;
+  --background-color: var(--color-azure);
+  --foreground-color: var(--color-black);
 }
 
 .edit-mode {
-  --background-color: #ccff99;
+  --background-color: var(var(--color-chartreuse));
+  --foreground-color: var(--color-black);
 }
 
 .index-mode {
-  --background-color: #ff99cc;
+  --background-color: var(--color-rose);
+  --foreground-color: var(--color-black);
+}
+
+.locked-mode {
+  --background-color: var(--color-black);
+  --foreground-color: var(--color-white);
 }
 
 #root {

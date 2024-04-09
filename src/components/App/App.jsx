@@ -4,37 +4,22 @@ import ModeSelector from "@/components/ModeSelector";
 import IndexView from "@/components/IndexView";
 import ReadView from "@/components/ReadView";
 import EditView from "@/components/EditView";
+import AuthKeyForm from "@/components/AuthKeyForm";
 import "./App.css";
-
-const localStorageIsAvailable = (() => {
-  try {
-    localStorage.setItem("__test__", "__test__");
-    localStorage.removeItem("__test__");
-    return true;
-  } catch {
-    return false;
-  }
-})();
 
 const AppContext = createContext();
 
 const App = () => {
+  const [authKey, setAuthKey] = useState();
   const [pages, setPages] = useState();
   const [currentPageId, setCurrentPageId] = useState();
   const [currentPage, setCurrentPage] = useState();
-  const [mode, setMode] = useState("index");
+  const [mode, setMode] = useState("locked");
   const [lastSyncTime, setLastSyncTime] = useState();
 
   useEffect(() => {
-    // Delete this at some point
-    if (localStorageIsAvailable) {
-      localStorage.removeItem("pages");
-      localStorage.removeItem("mode");
-      localStorage.removeItem("currentPageId");
-    }
-
-    getPages();
-  }, []);
+    if (authKey) getPages();
+  }, [authKey]);
 
   useEffect(() => {
     setCurrentPage(pages?.find((page) => page.id === currentPageId));
@@ -48,12 +33,13 @@ const App = () => {
     axios({
       method: "get",
       url: "https://vowell-john-back-end.glitch.me/pages",
-      headers: { admin_key: "toadspit" },
+      headers: { admin_key: authKey },
     })
       .then(({ data }) => {
         if (data.success) {
           setLastSyncTime(new Date());
           setPages(data.pages);
+          setMode("index");
         }
       })
       .catch(() => {
@@ -67,7 +53,7 @@ const App = () => {
     axios({
       method: "post",
       url: "https://vowell-john-back-end.glitch.me/page",
-      headers: { admin_key: "toadspit" },
+      headers: { admin_key: authKey },
       data: { title },
     })
       .then(({ data }) => {
@@ -87,7 +73,7 @@ const App = () => {
     axios({
       method: "put",
       url: "https://vowell-john-back-end.glitch.me/page",
-      headers: { admin_key: "toadspit" },
+      headers: { admin_key: authKey },
       data: { id: currentPageId, title, text },
     })
       .then(({ data }) => {
@@ -113,7 +99,7 @@ const App = () => {
     axios({
       method: "delete",
       url: "https://vowell-john-back-end.glitch.me/page",
-      headers: { admin_key: "toadspit" },
+      headers: { admin_key: authKey },
       data: { id: currentPageId },
     })
       .then(({ data }) => {
@@ -137,6 +123,7 @@ const App = () => {
         currentPage,
         mode,
         lastSyncTime,
+        setAuthKey,
         setCurrentPageId,
         setMode,
         getPages,
@@ -145,13 +132,15 @@ const App = () => {
         deleteCurrentPage,
       }}
     >
-      <ModeSelector />
-      {pages && (
+      {authKey && pages ? (
         <>
+          <ModeSelector />
           {mode === "index" && <IndexView />}
           {mode === "read" && <ReadView />}
           {mode === "edit" && <EditView />}
         </>
+      ) : (
+        <AuthKeyForm />
       )}
     </AppContext.Provider>
   );
