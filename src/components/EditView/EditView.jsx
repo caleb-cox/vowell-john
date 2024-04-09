@@ -20,7 +20,12 @@ const EditView = () => {
 
   return currentPage ? (
     <div className="EditView">
-      <h1>{title}</h1>
+      <input
+        spellCheck={false}
+        value={title}
+        placeholder="Enter title here..."
+        onChange={(e) => setTitle(e.target.value)}
+      />
       <textarea
         spellCheck={false}
         value={text}

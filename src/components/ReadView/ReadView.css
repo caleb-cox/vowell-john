@@ -7,6 +7,7 @@
 
 .ReadView h1 {
   font-size: 2rem;
+  font-weight: bold;
   overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

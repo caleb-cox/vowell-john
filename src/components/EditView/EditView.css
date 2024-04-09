@@ -5,17 +5,8 @@
   gap: 1rem;
 }
 
-.EditView h1 {
-  font-size: 2rem;
-  overflow-x: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  flex-shrink: 0;
-}
-
+.EditView input,
 .EditView textarea {
-  resize: none;
-  flex-grow: 1;
   outline: none;
   border: 0;
   padding: 0;
@@ -25,8 +16,19 @@
   line-height: inherit;
 }
 
+.EditView input::placeholder,
 .EditView textarea::placeholder {
   color: color-mix(in srgb, var(--foreground-color) 50%, transparent);
+}
+
+.EditView input {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.EditView textarea {
+  resize: none;
+  flex-grow: 1;
 }
 
 .EditView .controls {
