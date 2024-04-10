@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAppContext } from "@/components/App";
+import { useStateContext } from "@/contexts/StateContext";
 import Button from "@/components/Button";
 import "./NewPageForm.css";
 
 const NewPageForm = () => {
-  const { findPageByTitle, createPage } = useAppContext();
+  const { findPageByTitle, createPage } = useStateContext();
 
   const [newPageTitle, setNewPageTitle] = useState("");
 

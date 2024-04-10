@@ -1,11 +1,11 @@
 import reactStringReplace from "react-string-replace";
 import { v4 as uuidv4 } from "uuid";
-import { useAppContext } from "@/components/App";
+import { useStateContext } from "@/contexts/StateContext";
 import "./ReadView.css";
 
 const ReadView = () => {
   const { currentPage, findPageByTitle, viewPage, createPage } =
-    useAppContext();
+    useStateContext();
 
   return (
     <div className="ReadView">
@@ -19,13 +19,9 @@ const ReadView = () => {
               className={["link"]
                 .concat(linkedPage ? [] : ["unlinked"])
                 .join(" ")}
-              onClick={() => {
-                if (linkedPage) {
-                  viewPage(linkedPage);
-                } else {
-                  createPage(match);
-                }
-              }}
+              onClick={() =>
+                linkedPage ? viewPage(linkedPage) : createPage(match)
+              }
             >
               {match}
             </span>

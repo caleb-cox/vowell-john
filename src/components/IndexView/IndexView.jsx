@@ -1,28 +1,26 @@
-import { useAppContext } from "@/components/App";
+import { useStateContext } from "@/contexts/StateContext";
 import Button from "@/components/Button";
 import DataBox from "@/components/DataBox";
 import "./IndexView.css";
 
 const IndexView = () => {
   const { pages, viewPage, viewNewPage, getPages, lastSyncTime } =
-    useAppContext();
+    useStateContext();
 
   return (
     <div className="IndexView">
       <div className="pages">
-        {pages.map((page) => {
-          return (
-            <div
-              key={page.id}
-              className="page"
-              onClick={() => {
-                viewPage(page);
-              }}
-            >
-              {page.title}
-            </div>
-          );
-        })}
+        {pages.map((page) => (
+          <div
+            key={page.id}
+            className="page"
+            onClick={() => {
+              viewPage(page);
+            }}
+          >
+            {page.title}
+          </div>
+        ))}
       </div>
       <div className="controls">
         <Button icon="add_circle" onClick={viewNewPage} />

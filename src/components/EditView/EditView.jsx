@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAppContext } from "@/components/App";
+import { useStateContext } from "@/contexts/StateContext";
 import DataBox from "@/components/DataBox";
 import Button from "@/components/Button";
 import Modal from "@/components/Modal";
@@ -7,7 +7,7 @@ import NewPageForm from "@/components/NewPageForm";
 import "./EditView.css";
 
 const EditView = () => {
-  const { currentPage, updatePage, deletePage } = useAppContext();
+  const { currentPage, updatePage, deletePage } = useStateContext();
 
   const [title, setTitle] = useState(currentPage?.title);
   const [text, setText] = useState(currentPage?.text);

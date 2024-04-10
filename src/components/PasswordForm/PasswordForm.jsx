@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAppContext } from "@/components/App";
+import { useStateContext } from "@/contexts/StateContext";
 import Button from "@/components/Button";
 import "./PasswordForm.css";
 
 const PasswordForm = () => {
-  const { setPassword } = useAppContext();
+  const { setPassword } = useStateContext();
 
   const [inputValue, setInputValue] = useState("");
 
