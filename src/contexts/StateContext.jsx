@@ -1,20 +1,18 @@
-import { createContext, useContext } from "react";
+import { createContext, useState, useContext } from "react";
 import { useImmer } from "use-immer";
 import axios from "axios";
 
 const StateContext = createContext();
 
 const StateContextProvider = ({ children }) => {
+  const [password, setPassword] = useState();
   const [state, updateState] = useImmer({
     loading: false,
     mode: "locked",
-    password: undefined,
     pages: undefined,
-    lastSyncTime: undefined,
     currentPage: undefined,
+    lastSyncTime: undefined,
   });
-
-  const { password } = state;
 
   const setLoading = (loading) => {
     updateState((draft) => {
@@ -25,12 +23,6 @@ const StateContextProvider = ({ children }) => {
   const setMode = (mode) => {
     updateState((draft) => {
       draft.mode = mode;
-    });
-  };
-
-  const setPassword = (password) => {
-    updateState((draft) => {
-      draft.password = password;
     });
   };
 
@@ -139,9 +131,9 @@ const StateContextProvider = ({ children }) => {
     <StateContext.Provider
       value={{
         ...state,
+        setPassword,
         setLoading,
         setMode,
-        setPassword,
         viewPage,
         viewNewPage,
         getPages,
