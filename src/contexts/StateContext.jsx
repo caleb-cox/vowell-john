@@ -131,6 +131,7 @@ const StateContextProvider = ({ children }) => {
     <StateContext.Provider
       value={{
         ...state,
+        password,
         setPassword,
         setLoading,
         setMode,
