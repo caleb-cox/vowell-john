@@ -5,7 +5,7 @@ import "./ReadView.css";
 
 const ReadView = () => {
   const { currentPage, findPageByTitle, viewPage, createPage } =
-    useStateContext();z
+    useStateContext();
 
   return (
     <div className="ReadView">
