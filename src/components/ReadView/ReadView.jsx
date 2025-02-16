@@ -10,6 +10,14 @@ const ReadView = () => {
   const text = currentPage?.text;
   let replacedText;
 
+  replacedText = reactStringReplace(text, /\*\*(.*?)\*\*/g, (match) => {
+    return <strong>{match}</strong>;
+  });
+
+  replacedText = reactStringReplace(text, /\*(.*?)\*/g, (match) => {
+    return <em>{match}</em>;
+  });
+
   replacedText = reactStringReplace(text, /\[\[(.*?)]]/g, (match) => {
     const linkedPage = findPageByTitle(match);
     return (
@@ -21,10 +29,6 @@ const ReadView = () => {
         {match}
       </span>
     );
-  });
-
-  replacedText = reactStringReplace(text, /\*\*(.*?)\*\*/g, (match) => {
-    return <b>{match}</b>;
   });
 
   return (
