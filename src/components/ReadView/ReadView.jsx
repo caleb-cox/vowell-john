@@ -7,27 +7,30 @@ const ReadView = () => {
   const { currentPage, findPageByTitle, viewPage, createPage } =
     useStateContext();
 
+  const text = currentPage?.text;
+  let replacedText;
+
+  replacedText = reactStringReplace(text, /\[\[(.*?)]]/g, (match) => {
+    const linkedPage = findPageByTitle(match);
+    return (
+      <span
+        key={uuidv4()}
+        className={["link"].concat(linkedPage ? [] : ["unlinked"]).join(" ")}
+        onClick={() => (linkedPage ? viewPage(linkedPage) : createPage(match))}
+      >
+        {match}
+      </span>
+    );
+  });
+
+  replacedText = reactStringReplace(text, /\*\*(.*?)\*\*/g, (match) => {
+    return <b>{match}</b>;
+  });
+
   return (
     <div className="ReadView">
       <h1>{currentPage?.title || "New page"}</h1>
-      <section>
-        {reactStringReplace(currentPage?.text, /\[\[(.*?)]]/g, (match) => {
-          const linkedPage = findPageByTitle(match);
-          return (
-            <span
-              key={uuidv4()}
-              className={["link"]
-                .concat(linkedPage ? [] : ["unlinked"])
-                .join(" ")}
-              onClick={() =>
-                linkedPage ? viewPage(linkedPage) : createPage(match)
-              }
-            >
-              {match}
-            </span>
-          );
-        })}
-      </section>
+      <section>{replacedText}</section>
     </div>
   );
 };
