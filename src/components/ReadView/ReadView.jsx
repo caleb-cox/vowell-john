@@ -7,18 +7,17 @@ const ReadView = () => {
   const { currentPage, findPageByTitle, viewPage, createPage } =
     useStateContext();
 
-  const text = currentPage?.text;
   let replacedText;
 
-  replacedText = reactStringReplace(text, /\*\*(.*?)\*\*/g, (match) => {
+  replacedText = reactStringReplace(currentPage?.text, /\*\*(.*?)\*\*/g, (match) => {
     return <strong>{match}</strong>;
   });
 
-  replacedText = reactStringReplace(text, /\*(.*?)\*/g, (match) => {
+  replacedText = reactStringReplace(replacedText, /\*(.*?)\*/g, (match) => {
     return <em>{match}</em>;
   });
 
-  replacedText = reactStringReplace(text, /\[\[(.*?)]]/g, (match) => {
+  replacedText = reactStringReplace(replacedText, /\[\[(.*?)]]/g, (match) => {
     const linkedPage = findPageByTitle(match);
     return (
       <span
