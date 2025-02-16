@@ -30,12 +30,12 @@ body {
 
 .read-mode {
   --background-color: var(--color-black);
-  --foreground-color: var(--color-azure);
+  --foreground-color: var(--color-chartreuse);
 }
 
 .edit-mode {
   --background-color: var(--color-black);
-  --foreground-color: var(--color-chartreuse);
+  --foreground-color: var(--color-azure);
 }
 
 .index-mode {
